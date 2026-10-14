@@ -1,0 +1,1382 @@
+{
+  "general": {
+    "logo": "https://www.rosierfoods.com/cdn/shop/files/black-logo-01_7f1cd910-121f-49c7-bdcf-248849cd14f5.webp?width=600",
+    "tagline": "Reviving the tradition of Bharat",
+    "footerNote": "Made with love in Bharat 🇮🇳",
+    "welcomeNotification": {
+      "title": "Welcome to Rosier 🌾",
+      "body": "We just added welcome coins to your wallet. Use them on your first order."
+    },
+    "maintenance": {
+      "enabled": false,
+      "title": "We'll be right back",
+      "message": "We're sprucing up the app. Please check back in a little while.",
+      "image": ""
+    },
+    "update": {
+      "minVersion": "1.0.0",
+      "force": false,
+      "title": "A fresh update is here",
+      "message": "Update the Rosier app to get the latest offers and a smoother experience.",
+      "androidUrl": "https://play.google.com/store/apps/details?id=com.rosierfoods.app",
+      "iosUrl": ""
+    }
+  },
+  "onboarding": {
+    "reshowVersion": 1,
+    "background": "#F1DCC3",
+    "accent": "#B8662F",
+    "skipLabel": "Skip",
+    "buttonLabel": "Get Started",
+    "namePlaceholder": "What should we call you?",
+    "welcomeNote": "🎁 {welcomeBonus} welcome coins are already in your wallet.",
+    "slides": [
+      {
+        "id": "brand",
+        "enabled": true,
+        "art": "collage",
+        "showLogo": true,
+        "title": "ROSIER FOODS",
+        "sub": "Reviving the tradition of Bharat.\nPure food, made the old way.",
+        "image": "",
+        "images": [
+          "product:high-protein-oats-kulfi-masti",
+          "product:mango-pickle",
+          "product:a2-desi-cow-ghee-hand-churned-from-curd",
+          "product:wood-pressed-black-mustard-oil",
+          "product:khapli-emmer-wheat-atta-stoneground-high-fiber-for-gut-health",
+          "product:wild-flower-honey",
+          "product:nut-butter-dark-chocolate"
+        ],
+        "chips": [],
+        "showNameInput": false,
+        "video": "",
+        "poster": "",
+        "videoSound": false,
+        "colors": [
+          "#FBE3C6",
+          "#FF9F43",
+          "#F368E0",
+          "#FECA57"
+        ],
+        "artHeight": 52,
+        "artScale": 1,
+        "videoWidth": 62,
+        "videoRatio": 1.78,
+        "videoRadius": 28,
+        "videoFit": "cover",
+        "titleSize": 34,
+        "titleColor": "",
+        "subSize": 15,
+        "subColor": ""
+      },
+      {
+        "id": "bilona",
+        "enabled": true,
+        "art": "churn",
+        "showLogo": false,
+        "title": "THE BILONA WAY",
+        "sub": "Our A2 ghee starts as curd, not cream.\nSlow churned by hand, never rushed.",
+        "image": "product:a2-desi-cow-ghee-hand-churned-from-curd",
+        "images": [],
+        "chips": [
+          {
+            "icon": "water-outline",
+            "label": "Gir cow milk"
+          },
+          {
+            "icon": "beaker-outline",
+            "label": "Set into curd"
+          },
+          {
+            "icon": "sync",
+            "label": "Bilona churned"
+          },
+          {
+            "icon": "fire",
+            "label": "Slow cooked"
+          }
+        ],
+        "showNameInput": false,
+        "video": "",
+        "poster": "",
+        "videoSound": false,
+        "colors": [
+          "#FFF1D6",
+          "#E1A140",
+          "#FF6B6B",
+          "#48DBFB"
+        ],
+        "artHeight": 52,
+        "artScale": 1,
+        "videoWidth": 62,
+        "videoRatio": 1.78,
+        "videoRadius": 28,
+        "videoFit": "cover",
+        "titleSize": 34,
+        "titleColor": "",
+        "subSize": 15,
+        "subColor": ""
+      },
+      {
+        "id": "coins",
+        "enabled": true,
+        "art": "coins",
+        "showLogo": false,
+        "title": "ROSIER COINS",
+        "sub": "Every order earns you coins.\nSwap them for real discounts.",
+        "image": "",
+        "images": [],
+        "chips": [],
+        "showNameInput": true,
+        "video": "",
+        "poster": "",
+        "videoSound": false,
+        "colors": [
+          "#FFE8CF",
+          "#F9CA24",
+          "#6AB04C",
+          "#E056FD"
+        ],
+        "artHeight": 52,
+        "artScale": 1,
+        "videoWidth": 62,
+        "videoRatio": 1.78,
+        "videoRadius": 28,
+        "videoFit": "cover",
+        "titleSize": 34,
+        "titleColor": "",
+        "subSize": 15,
+        "subColor": ""
+      }
+    ],
+    "vibrant": true,
+    "showAfterLogout": true
+  },
+  "popup": {
+    "enabled": false,
+    "id": "launch-1",
+    "frequency": "once",
+    "image": "",
+    "title": "",
+    "body": "",
+    "buttonLabel": "Shop now",
+    "link": "/collections/all",
+    "startAt": "",
+    "endAt": ""
+  },
+  "home": {
+    "searchPlaceholder": "search for ghee, Khapli, oil...",
+    "showCoinsBanner": true,
+    "coinsBanner": {
+      "title": "Every Order.\nMore Rewards.",
+      "body": "Earn Rosier Coins on every purchase & unlock exclusive benefits.",
+      "button": "See Benefits"
+    },
+    "heroSource": "website",
+    "heroBanners": [
+      {
+        "id": "ghee",
+        "enabled": true,
+        "kind": "card",
+        "image": "product:a2-desi-cow-ghee-hand-churned-from-curd",
+        "title": "A2 Gir\nCow Ghee",
+        "sub": "Made from curd, the bilona way. Slow churned, never rushed.",
+        "colors": [
+          "#FFF3D6",
+          "#F6D98C",
+          "#E9B955"
+        ],
+        "light": false,
+        "link": "/products/a2-desi-cow-ghee-hand-churned-from-curd",
+        "startAt": "",
+        "endAt": ""
+      },
+      {
+        "id": "khapli",
+        "enabled": true,
+        "kind": "card",
+        "image": "product:khapli-emmer-wheat-atta-stoneground-high-fiber-for-gut-health",
+        "title": "Khapli\nAtta",
+        "sub": "Ancient emmer wheat, stone ground on a chakki.",
+        "colors": [
+          "#E9F1DD",
+          "#B8CFA0",
+          "#7E9C62"
+        ],
+        "light": false,
+        "link": "/products/khapli-emmer-wheat-atta-stoneground-high-fiber-for-gut-health",
+        "startAt": "",
+        "endAt": ""
+      },
+      {
+        "id": "oats",
+        "enabled": true,
+        "kind": "card",
+        "image": "product:high-protein-oats-mango-tango",
+        "title": "High Protein\nOats",
+        "sub": "Breakfast that keeps you full till lunch.",
+        "colors": [
+          "#5A2E14",
+          "#8C4A22",
+          "#C47A48"
+        ],
+        "light": true,
+        "link": "/collections/oats",
+        "startAt": "",
+        "endAt": ""
+      }
+    ],
+    "tilesSource": "website",
+    "tiles": [],
+    "sections": [
+      {
+        "id": "categories",
+        "type": "categories",
+        "enabled": true,
+        "title": "Discover category"
+      },
+      {
+        "id": "deals",
+        "type": "deals",
+        "enabled": true,
+        "title": "Limited deals",
+        "handles": []
+      },
+      {
+        "id": "benefits",
+        "type": "benefits",
+        "enabled": true
+      },
+      {
+        "id": "bestsellers",
+        "type": "grid",
+        "enabled": true,
+        "title": "Loved Across Generations",
+        "subtitle": "The bestsellers our families keep coming back for",
+        "handles": [
+          "a2-desi-cow-ghee-hand-churned-from-curd",
+          "wild-flower-honey",
+          "khapli-emmer-wheat-atta-stoneground-high-fiber-for-gut-health",
+          "high-protein-oats-kulfi-masti",
+          "wood-pressed-black-mustard-oil",
+          "mango-pickle"
+        ],
+        "category": "",
+        "limit": 6,
+        "showViewAll": false
+      },
+      {
+        "id": "combos",
+        "type": "grid",
+        "enabled": true,
+        "title": "Buy More, Save More",
+        "subtitle": "",
+        "handles": [],
+        "category": "combos",
+        "limit": 4,
+        "showViewAll": true
+      },
+      {
+        "id": "ghee-strip",
+        "type": "promo",
+        "enabled": true,
+        "kicker": "India's Best",
+        "title": "A2 Ghee",
+        "body": "From free-grazing Gir cows. Churned from curd.",
+        "button": "Shop Now →",
+        "image": "product:a2-desi-cow-ghee-hand-churned-from-curd",
+        "colors": [
+          "#FFF4DC",
+          "#F6D98C"
+        ],
+        "link": "/products/a2-desi-cow-ghee-hand-churned-from-curd"
+      },
+      {
+        "id": "exciting",
+        "type": "row",
+        "enabled": true,
+        "title": "Exciting deals",
+        "handles": [
+          "high-protein-oats-cafe-latte",
+          "high-protein-oats-kulfi-masti",
+          "high-protein-oats-mango-tango",
+          "instant-oats-oats-double-chocolate",
+          "instant-oats-banana-cinnamon",
+          "mango-pickle",
+          "lemon-pickle",
+          "sweet-lemon-pickle"
+        ],
+        "category": "",
+        "link": "/collections/all"
+      },
+      {
+        "id": "reviews",
+        "type": "reviews",
+        "enabled": true,
+        "title": "More Than a Brand, A Family",
+        "subtitle": "जड़ों से जुड़े लोग, असली बदलाव"
+      },
+      {
+        "id": "pillars",
+        "type": "pillars",
+        "enabled": true
+      }
+    ],
+    "quickTabsShow": true,
+    "quickTabWidth": 82,
+    "quickTabHeight": 54,
+    "quickTabs": [
+      {
+        "id": "rosier",
+        "enabled": true,
+        "kind": "logo",
+        "label": "ROSIER",
+        "font": "serif",
+        "textColor": "",
+        "bgColor": "",
+        "borderColor": "",
+        "icon": "",
+        "iconColor": "",
+        "image": "",
+        "link": "",
+        "startAt": "",
+        "endAt": ""
+      },
+      {
+        "id": "hampers",
+        "enabled": true,
+        "kind": "text",
+        "label": "Gift\nHampers",
+        "font": "bold",
+        "textColor": "#8E1F2F",
+        "bgColor": "#FFF4E0",
+        "borderColor": "#E9C46A",
+        "icon": "",
+        "iconColor": "",
+        "image": "",
+        "link": "app:/page/hampers",
+        "startAt": "",
+        "endAt": ""
+      },
+      {
+        "id": "breakfast",
+        "enabled": true,
+        "kind": "text",
+        "label": "Breakfast\nclub",
+        "font": "bold",
+        "textColor": "#D6338A",
+        "bgColor": "",
+        "borderColor": "",
+        "icon": "",
+        "iconColor": "",
+        "image": "",
+        "link": "app:/collection/breakfast",
+        "startAt": "",
+        "endAt": ""
+      },
+      {
+        "id": "club",
+        "enabled": true,
+        "kind": "text",
+        "label": "Benefit\nclub",
+        "font": "serif",
+        "textColor": "",
+        "bgColor": "",
+        "borderColor": "",
+        "icon": "",
+        "iconColor": "",
+        "image": "",
+        "link": "app:/benefits-club",
+        "startAt": "",
+        "endAt": ""
+      },
+      {
+        "id": "now",
+        "enabled": true,
+        "kind": "text",
+        "label": "Rosier\nNow",
+        "font": "serif",
+        "textColor": "",
+        "bgColor": "",
+        "borderColor": "",
+        "icon": "",
+        "iconColor": "",
+        "image": "",
+        "link": "app:/collection/new",
+        "startAt": "",
+        "endAt": ""
+      },
+      {
+        "id": "coins",
+        "enabled": true,
+        "kind": "text",
+        "label": "Rosier\nCoins",
+        "font": "serif",
+        "textColor": "",
+        "bgColor": "",
+        "borderColor": "",
+        "icon": "",
+        "iconColor": "",
+        "image": "",
+        "link": "app:/coins",
+        "startAt": "",
+        "endAt": ""
+      }
+    ]
+  },
+  "categories": {
+    "items": [
+      {
+        "id": "ghee",
+        "enabled": true,
+        "label": "Ghee",
+        "icon": "ghee",
+        "image": "",
+        "blurb": "Bilona churned from curd",
+        "tint": "#F4E1C4",
+        "collection": "ghee",
+        "showBanner": true,
+        "bannerImage": "",
+        "bannerRadius": 16
+      },
+      {
+        "id": "atta",
+        "enabled": true,
+        "label": "Atta",
+        "icon": "atta",
+        "image": "",
+        "blurb": "Stone ground, fibre intact",
+        "tint": "#E9E4C9",
+        "collection": "atta",
+        "showBanner": true,
+        "bannerImage": "",
+        "bannerRadius": 16
+      },
+      {
+        "id": "oils",
+        "enabled": true,
+        "label": "Oils",
+        "icon": "oil",
+        "image": "",
+        "blurb": "Stone pressed, never heated",
+        "tint": "#F6E6B8",
+        "collection": "stone-press-oil",
+        "showBanner": true,
+        "bannerImage": "",
+        "bannerRadius": 16
+      },
+      {
+        "id": "breakfast",
+        "enabled": true,
+        "label": "Breakfast",
+        "icon": "breakfast",
+        "image": "",
+        "blurb": "High protein mornings",
+        "tint": "#F6D9C7",
+        "collection": "oats",
+        "showBanner": true,
+        "bannerImage": "",
+        "bannerRadius": 16
+      },
+      {
+        "id": "immunity",
+        "enabled": true,
+        "label": "Immunity",
+        "icon": "immunity",
+        "image": "",
+        "blurb": "Honey & Amlaprash",
+        "tint": "#F3D6CC",
+        "collection": "immunity-booster",
+        "showBanner": true,
+        "bannerImage": "",
+        "bannerRadius": 16
+      },
+      {
+        "id": "pickles",
+        "enabled": true,
+        "label": "Pickles",
+        "icon": "pickle",
+        "image": "",
+        "blurb": "Sun dried like Dadi’s",
+        "tint": "#DCEBD0",
+        "collection": "pickles",
+        "showBanner": true,
+        "bannerImage": "",
+        "bannerRadius": 16
+      },
+      {
+        "id": "combos",
+        "enabled": true,
+        "label": "Combos",
+        "icon": "combo",
+        "image": "",
+        "blurb": "Buy more, save more",
+        "tint": "#EADCF0",
+        "collection": "combo",
+        "showBanner": true,
+        "bannerImage": "",
+        "bannerRadius": 16
+      }
+    ]
+  },
+  "products": {
+    "overrides": []
+  },
+  "search": {
+    "popular": [
+      "A2 Ghee",
+      "Khapli Atta",
+      "Mustard Oil",
+      "Honey",
+      "Oats",
+      "Pickle",
+      "Nut Butter",
+      "Combo"
+    ]
+  },
+  "reviews": {
+    "items": [
+      {
+        "title": "Rich Tradition in Every Drop",
+        "body": "Rosier Foods’ A2 Desi Cow Ghee brings the richness of tradition to my kitchen. Its pure taste elevates every dish beautifully.",
+        "name": "Sushmita",
+        "product": "Gir Cow A2 Ghee",
+        "rating": 5,
+        "photo": ""
+      },
+      {
+        "title": "Pure Aroma, Authentic Taste!",
+        "body": "A2 Desi Cow Ghee from Rosier Foods gives my cooking a rich, authentic flavor. The purity and aroma are unmatched—my family loves it!",
+        "name": "Ankush S.",
+        "product": "Gir Cow A2 Ghee",
+        "rating": 5,
+        "photo": ""
+      },
+      {
+        "title": "Old-school fuel. Real results.",
+        "body": "Balancing endurance sports, a demanding IT career, and family life has taught me that food needs to do more than just fill the plate.",
+        "name": "Sumit Suhag",
+        "product": "Gir Cow A2 Ghee",
+        "rating": 5,
+        "photo": ""
+      },
+      {
+        "title": "Healthy Choice for Everyday Meals!",
+        "body": "Switching to Khapli Wheat Atta from Rosier Foods was the best choice for our health. It’s fresh, nutritious, and perfect for our daily meals!",
+        "name": "Alisha A.",
+        "product": "Khapli (Emmer) Wheat Atta",
+        "rating": 5,
+        "photo": ""
+      },
+      {
+        "title": "Taste That Feels Like Home",
+        "body": "Using A2 Desi Cow Ghee from Rosier Foods makes my meals comforting and flavorful. The quality and purity are simply outstanding.",
+        "name": "Himanshi S.",
+        "product": "Gir Cow A2 Ghee",
+        "rating": 5,
+        "photo": ""
+      }
+    ]
+  },
+  "pillars": {
+    "title": "The Rosier Foods Experience",
+    "subtitle": "असली स्वाद की एक सच्ची यात्रा",
+    "items": [
+      {
+        "icon": "sprout",
+        "title": "Source To Table",
+        "body": "We work directly with our farmer families."
+      },
+      {
+        "icon": "pot-steam-outline",
+        "title": "Time-Honored Techniques",
+        "body": "Bilona, chakki and stone press. The old ways."
+      },
+      {
+        "icon": "water-check-outline",
+        "title": "Unwavering Purity",
+        "body": "Minimally processed. Lab tested."
+      },
+      {
+        "icon": "hand-heart-outline",
+        "title": "Commitment to Community",
+        "body": "Good for you, good for the planet."
+      }
+    ]
+  },
+  "benefits": {
+    "bannerTitle": "ROSIER",
+    "bannerSubtitle": "BENEFITS CLUB",
+    "bannerTagline": "EXCLUSIVE BENEFITS. PREMIUM EXPERIENCE. JUST FOR YOU.",
+    "bannerPerks": [
+      {
+        "icon": "percent-circle-outline",
+        "label": "17%\nOff"
+      },
+      {
+        "icon": "truck-fast-outline",
+        "label": "Free\nShipping"
+      },
+      {
+        "icon": "cake-variant-outline",
+        "label": "Birthday\nBox"
+      },
+      {
+        "icon": "bottle-tonic-outline",
+        "label": "Free 1L\nGhee"
+      },
+      {
+        "icon": "clock-fast",
+        "label": "Early\nAccess"
+      }
+    ],
+    "pageTitle": "Be part of the family",
+    "pageSubtitle": "Exclusive benefits. Premium experience. Just for you.",
+    "cardFooter": "MEMBER · SINCE 2026",
+    "perks": [
+      {
+        "icon": "percent-circle-outline",
+        "title": "Flat 17% off on all orders",
+        "body": "Your member price, every single time"
+      },
+      {
+        "icon": "bottle-tonic-outline",
+        "title": "Free 1 Ltr ghee",
+        "body": "When your orders add up to ₹15,000"
+      },
+      {
+        "icon": "cake-variant-outline",
+        "title": "Birthday surprise box",
+        "body": "Something special from our kitchen to yours"
+      },
+      {
+        "icon": "truck-fast-outline",
+        "title": "Free & fast shipping",
+        "body": "On every order, no minimum"
+      },
+      {
+        "icon": "clock-fast",
+        "title": "Early access",
+        "body": "Try new launches before anyone else"
+      }
+    ],
+    "plansTitle": "Choose your plan",
+    "popularPlanMonths": 6,
+    "membershipHandle": "membership",
+    "loginPrompt": "Already a member? Log in to see your benefits",
+    "memberTitle": "Welcome to the Parivaar",
+    "memberSubtitle": "Your membership is active. Here's everything that's yours.",
+    "memberTags": [
+      "member",
+      "membership",
+      "rosiervip",
+      "rosier member",
+      "vip"
+    ],
+    "membershipProductId": "9360060547302",
+    "memberDiscountPercent": 17,
+    "cartMemberDiscount": true,
+    "gheeTarget": 15000,
+    "gheeTitle": "Free 1 Ltr ghee",
+    "renewDays": 15,
+    "updatesTitle": "Member updates",
+    "updates": [
+      {
+        "id": "welcome",
+        "enabled": true,
+        "pinned": true,
+        "title": "You're in! 🎉",
+        "body": "17% off is on for every order you place in the app. Your birthday box is on us — we'll reach out a few days before.",
+        "image": "",
+        "link": "",
+        "date": "",
+        "startAt": "",
+        "endAt": "",
+        "push": false
+      }
+    ]
+  },
+  "coins": {
+    "earnPerRupee": 0.05,
+    "reviewBonus": 50,
+    "referralBonus": 500,
+    "welcomeBonus": 250,
+    "pendingDays": 7,
+    "minCartForVoucher": 499,
+    "vouchers": [
+      {
+        "id": "v50",
+        "value": 50,
+        "cost": 250,
+        "code": "ROSIERCOINS50",
+        "tint": "copper"
+      },
+      {
+        "id": "v100",
+        "value": 100,
+        "cost": 500,
+        "code": "ROSIERCOINS100",
+        "tint": "brown"
+      },
+      {
+        "id": "v250",
+        "value": 250,
+        "cost": 1250,
+        "code": "ROSIERCOINS250",
+        "tint": "green"
+      },
+      {
+        "id": "v500",
+        "value": 500,
+        "cost": 2500,
+        "code": "ROSIERCOINS500",
+        "tint": "deep"
+      }
+    ],
+    "referralMessage": "I shop A2 ghee, Khapli atta and more on the Rosier app. Join me and we both earn Rosier Coins! https://www.rosierfoods.com",
+    "steps": [
+      {
+        "icon": "cart-outline",
+        "title": "Shop anything",
+        "body": "Every product shows the coins it earns you."
+      },
+      {
+        "icon": "timer-sand",
+        "title": "Coins go pending",
+        "body": "They land in your wallet as soon as you order."
+      },
+      {
+        "icon": "lock-open-variant-outline",
+        "title": "They unlock",
+        "body": "{pendingDays} days after your order, they become usable."
+      },
+      {
+        "icon": "ticket-percent-outline",
+        "title": "Swap for vouchers",
+        "body": "Pick a voucher and it applies itself at checkout."
+      }
+    ],
+    "promoTitle": "More Coins.\nMore Benefits.",
+    "promoBody": "The more you shop, the more you earn!",
+    "promoButton": "Join Benefits Club",
+    "faq": [
+      {
+        "q": "What are Rosier Coins?",
+        "a": "Our way of saying thank you. You earn coins on every order and swap them for discount vouchers on your next one."
+      },
+      {
+        "q": "How many coins do I earn?",
+        "a": "You earn {per100} coins for every ₹100 you spend on the final order value."
+      },
+      {
+        "q": "When can I use my coins?",
+        "a": "Coins show as pending right after you order. They unlock {pendingDays} days later, once the return window is over."
+      },
+      {
+        "q": "How do I use them?",
+        "a": "Unlock a voucher here or in your cart. It is applied to your checkout automatically. If you change your mind, remove it and the coins come right back."
+      },
+      {
+        "q": "Can I combine vouchers?",
+        "a": "One coin voucher per order. It works alongside our regular Rosier offers."
+      }
+    ]
+  },
+  "about": {
+    "heroImage": "",
+    "headline": "We are reviving the traditional ways of Old Bharat",
+    "intro": "We believe the wisdom of Old Bharat still holds the secret to wholesome living. Age-old recipes, natural cooking methods and ingredients trusted by generations, made with modern quality standards.",
+    "blocks": [
+      {
+        "type": "text",
+        "title": "How it started",
+        "body": "Our journey began with a simple belief: good food brings people together. A passion for wholesome, authentic flavours grew into a mission to make food that's nourishing, sustainable and crafted with care.\n\nWe work closely with farmer families and suppliers who share our values. Every product balances traditional recipes with modern sensibilities, so every bite is rich in taste and goodness.",
+        "signature": "",
+        "image": ""
+      },
+      {
+        "type": "quote",
+        "title": "A note from our founder",
+        "body": "Gaurav has spent over 20 years in health and fitness, and has always been fascinated by the wisdom of ancient Indian sciences. He started Rosier to bring those traditions back to modern kitchens, beginning with milk from indigenous Gir cows.",
+        "signature": "— Gaurav, Founder",
+        "image": ""
+      },
+      {
+        "type": "text",
+        "title": "Sustainability",
+        "body": "Our products are minimally processed from consciously sourced ingredients. The healthy choices you make for your body should be healthy for the planet too.",
+        "signature": "",
+        "image": ""
+      }
+    ],
+    "labReportsPath": "/pages/lab-test-reports",
+    "websitePath": "/pages/about-us"
+  },
+  "help": {
+    "title": "We'd love to hear from you",
+    "intro": "Questions about an order, a product or your coins? Reach us any way you like.",
+    "phone": "+919205658884",
+    "phoneLabel": "+91-9205658884",
+    "email": "care@rosierfoods.com",
+    "contactPath": "/pages/contact",
+    "faq": [
+      {
+        "q": "What is A2 ghee?",
+        "a": "Ghee made from the milk of indigenous cows like the Gir, which carries the A2 type of beta-casein protein. Ours is made from curd using the bilona method."
+      },
+      {
+        "q": "What does \"bilona\" mean?",
+        "a": "Milk is set into curd overnight, then churned with a wooden churner to separate the butter. That butter is slow cooked into ghee. It takes longer, and we think it tastes better."
+      },
+      {
+        "q": "What is Khapli atta?",
+        "a": "Khapli is emmer wheat, an ancient heritage grain. We stone grind it on a chakki so the bran and fibre stay in."
+      },
+      {
+        "q": "How do I pay?",
+        "a": "Checkout happens securely on rosierfoods.com, with the same payment options you get on our website."
+      },
+      {
+        "q": "How do Rosier Coins work?",
+        "a": "You earn {per100} coins for every ₹100. Swap them for vouchers from the Coins tab or right in your cart."
+      },
+      {
+        "q": "Where can I track my order?",
+        "a": "Open Orders in the app, or log in to your account on rosierfoods.com for live tracking and invoices."
+      }
+    ],
+    "company": "Rosier Foods Pvt. Ltd.",
+    "address": "House No. B-2994/75, Gali No. 75, B-Block Sant Nagar, Burari, North West, Delhi - 110084"
+  },
+  "blog": {
+    "articles": [
+      {
+        "id": "bilona",
+        "enabled": true,
+        "title": "Curd, churn, cook: how bilona ghee is made",
+        "kicker": "Tradition",
+        "mins": 3,
+        "icon": "pot-mix-outline",
+        "colors": [
+          "#F6D98C",
+          "#C98A52"
+        ],
+        "image": "",
+        "product": "a2-desi-cow-ghee-hand-churned-from-curd",
+        "body": "Most ghee on the shelf is made from cream or butter. Bilona ghee takes the long road.\n\nFirst, whole milk from Gir cows is boiled, cooled and set into curd overnight. Next morning, the curd is churned with a wooden bilona until the butter (makkhan) separates from the buttermilk.\n\nThat butter is then slowly cooked until the moisture leaves and what remains is golden, grainy ghee with a nutty aroma.\n\nIt takes a lot more milk and a lot more time. That is exactly why it tastes the way Dadi’s did."
+      },
+      {
+        "id": "khapli",
+        "enabled": true,
+        "title": "Khapli: the ancient wheat making a comeback",
+        "kicker": "Grains",
+        "mins": 3,
+        "icon": "grain",
+        "colors": [
+          "#DCE7C9",
+          "#7E9C62"
+        ],
+        "image": "",
+        "product": "khapli-emmer-wheat-atta-stoneground-high-fiber-for-gut-health",
+        "body": "Khapli, or emmer wheat, is one of the oldest cultivated grains. It was grown across India long before modern wheat varieties took over.\n\nWe stone grind it on a chakki at low speed. The flour stays cooler, and the bran and fibre stay in.\n\nRotis come out a little darker and nuttier than regular atta. Give it two or three meals, and most families don’t go back."
+      },
+      {
+        "id": "oils",
+        "enabled": true,
+        "title": "Why stone pressed oil tastes different",
+        "kicker": "Kitchen",
+        "mins": 2,
+        "icon": "bottle-tonic-outline",
+        "colors": [
+          "#F6E6B8",
+          "#D9A441"
+        ],
+        "image": "",
+        "product": "wood-pressed-black-mustard-oil",
+        "body": "Most refined oils are extracted with heat and chemical solvents, then bleached and deodorised.\n\nStone pressing crushes seeds slowly, at low temperature, with nothing added. The oil keeps its natural colour, aroma and flavour.\n\nThat’s why our mustard oil has its signature punch, and our groundnut oil actually smells of groundnuts."
+      },
+      {
+        "id": "coins",
+        "enabled": true,
+        "title": "Your guide to Rosier Coins",
+        "kicker": "Rewards",
+        "mins": 1,
+        "icon": "database-outline",
+        "colors": [
+          "#F3D48B",
+          "#9C6B1C"
+        ],
+        "image": "",
+        "product": "",
+        "body": "Every order earns you Rosier Coins. Every product page shows exactly how many.\n\nCoins show as pending first, then unlock a few days later. Once they’re in, swap them for ₹50 to ₹500 off vouchers from the Coins tab or right in your cart.\n\nChanged your mind? Remove the voucher and your coins come straight back."
+      }
+    ]
+  },
+  "gifting": {
+    "image": "",
+    "title": "Gift something real",
+    "body": "Our combos make thoughtful gifts for family, friends and teams. Ordering for your company?",
+    "buttonLabel": "Corporate gifting enquiry",
+    "email": "care@rosierfoods.com",
+    "subject": "Corporate gifting enquiry",
+    "category": "combos"
+  },
+  "announcements": {
+    "items": []
+  },
+  "account": {
+    "loginTitle": "Log in to Rosier",
+    "loginBody": "Use the same email you shop with on rosierfoods.com. We'll send you a one-time code. No password to remember.",
+    "loginButton": "Continue with email",
+    "skipLabel": "Not now",
+    "perks": [
+      {
+        "icon": "package-variant-closed",
+        "text": "All your orders in one place, with live tracking"
+      },
+      {
+        "icon": "map-marker-check-outline",
+        "text": "Saved addresses, so checkout takes seconds"
+      },
+      {
+        "icon": "database-outline",
+        "text": "Rosier Coins on every order, app or website"
+      }
+    ],
+    "checkoutPromptTitle": "Check out faster?",
+    "checkoutPromptBody": "Log in and we'll fill in your address and details for you.",
+    "guestLabel": "Continue as guest",
+    "profileCardTitle": "Log in with your Rosier account",
+    "profileCardBody": "See your orders and check out with saved details.",
+    "ordersLoginPrompt": "Log in to see all your orders from the app and rosierfoods.com."
+  },
+  "theme": {
+    "light": {
+      "bg": "#FFFBF5",
+      "header": "#FBE6CF",
+      "card": "#F7EEE4",
+      "cardStrong": "#FFFFFF",
+      "border": "#EFDCC6",
+      "text": "#2B1A10",
+      "textSoft": "#7A6453",
+      "textMute": "#A8927F",
+      "heading": "#9A5B22",
+      "primary": "#A56312",
+      "accent": "#C47A48",
+      "deepAlt": "#5A3520",
+      "gold": "#D9A441",
+      "price": "#9B2C1F",
+      "green": "#2F8A3E",
+      "tabBar": "#E9D4BA",
+      "imageBg": ""
+    },
+    "dark": {
+      "bg": "#1B1714",
+      "header": "#241E1A",
+      "card": "#2C2521",
+      "cardStrong": "#332A25",
+      "border": "#3D322B",
+      "text": "#F6EDE3",
+      "textSoft": "#C9B8A8",
+      "textMute": "#8F7D6E",
+      "heading": "#D8A15A",
+      "primary": "#D8A15A",
+      "accent": "#C47A48",
+      "deepAlt": "#3E2415",
+      "gold": "#E2B254",
+      "price": "#F08A6F",
+      "green": "#4CAF50",
+      "tabBar": "#2A221D",
+      "imageBg": ""
+    },
+    "layout": {
+      "heroCardHeight": 212,
+      "heroImageRatio": 0,
+      "heroRadius": 22,
+      "carouselSeconds": 4.2,
+      "tileRatio": 0.55,
+      "tileRadius": 16,
+      "categoryTile": 72,
+      "categoryIcon": 44,
+      "dealCardWidth": 160,
+      "productImageRatio": 0.9,
+      "cardRadius": 20,
+      "imageBannerRadius": 18,
+      "sectionSpacing": 1,
+      "gridColumns": 2,
+      "listImageScale": 92,
+      "listImageFit": "contain",
+      "dealImageScale": 100
+    }
+  },
+  "effects": {
+    "enabled": false,
+    "userToggle": true,
+    "items": [
+      {
+        "id": "winter",
+        "enabled": true,
+        "name": "Winter snowfall",
+        "type": "snow",
+        "amount": 40,
+        "speed": 1,
+        "size": 1,
+        "opacity": 0.9,
+        "colors": [
+          "#FFFFFF",
+          "#D7ECFB",
+          "#B9DCF5"
+        ],
+        "emoji": "",
+        "image": "",
+        "screens": "home",
+        "stopAfter": 0,
+        "startAt": "",
+        "endAt": ""
+      },
+      {
+        "id": "diwali",
+        "enabled": false,
+        "name": "Diwali sparkles",
+        "type": "sparkles",
+        "amount": 34,
+        "speed": 1,
+        "size": 1,
+        "opacity": 1,
+        "colors": [
+          "#F3D48B",
+          "#FFB703",
+          "#FB8500",
+          "#FFE8A3"
+        ],
+        "emoji": "",
+        "image": "",
+        "screens": "home",
+        "stopAfter": 0,
+        "startAt": "",
+        "endAt": ""
+      },
+      {
+        "id": "diyas",
+        "enabled": false,
+        "name": "Floating diyas",
+        "type": "diyas",
+        "amount": 14,
+        "speed": 1,
+        "size": 1,
+        "opacity": 1,
+        "colors": [],
+        "emoji": "",
+        "image": "",
+        "screens": "home",
+        "stopAfter": 0,
+        "startAt": "",
+        "endAt": ""
+      },
+      {
+        "id": "holi",
+        "enabled": false,
+        "name": "Holi colours",
+        "type": "holi",
+        "amount": 40,
+        "speed": 1,
+        "size": 1,
+        "opacity": 0.85,
+        "colors": [
+          "#FF006E",
+          "#FFBE0B",
+          "#3A86FF",
+          "#8338EC",
+          "#06D6A0",
+          "#FB5607"
+        ],
+        "emoji": "",
+        "image": "",
+        "screens": "home",
+        "stopAfter": 0,
+        "startAt": "",
+        "endAt": ""
+      },
+      {
+        "id": "monsoon",
+        "enabled": false,
+        "name": "Monsoon rain",
+        "type": "rain",
+        "amount": 50,
+        "speed": 1,
+        "size": 1,
+        "opacity": 0.6,
+        "colors": [
+          "#7FA7C9"
+        ],
+        "emoji": "",
+        "image": "",
+        "screens": "home",
+        "stopAfter": 0,
+        "startAt": "",
+        "endAt": ""
+      },
+      {
+        "id": "sale",
+        "enabled": false,
+        "name": "Sale confetti",
+        "type": "confetti",
+        "amount": 45,
+        "speed": 1,
+        "size": 1,
+        "opacity": 1,
+        "colors": [
+          "#A56312",
+          "#F3D48B",
+          "#E76F51",
+          "#2A9D8F",
+          "#E9C46A"
+        ],
+        "emoji": "",
+        "image": "",
+        "screens": "home",
+        "stopAfter": 8,
+        "startAt": "",
+        "endAt": ""
+      }
+    ]
+  },
+  "coupons": {
+    "enabled": true,
+    "boxTitle": "Apply coupon",
+    "placeholder": "Enter coupon code",
+    "listTitle": "Available coupons",
+    "showList": true,
+    "items": [
+      {
+        "id": "example",
+        "enabled": false,
+        "code": "WELCOME10",
+        "title": "10% off your first order",
+        "description": "For new customers on the Rosier app.",
+        "kind": "percent",
+        "value": 10,
+        "minOrder": 0,
+        "maxDiscount": 0,
+        "startAt": "",
+        "endAt": ""
+      }
+    ]
+  },
+  "tracking": {
+    "enabled": true,
+    "title": "Track your order",
+    "intro": "Enter your order number and the email or phone number you used when ordering.",
+    "orderLabel": "Order number",
+    "contactLabel": "Email or phone",
+    "help": "Shipped orders show the courier and tracking number here. Most orders reach you in 3–7 days.",
+    "websiteTrackUrl": "",
+    "steps": {
+      "ordered": "Order placed",
+      "confirmed": "Packed",
+      "shipped": "Shipped",
+      "out": "Out for delivery",
+      "delivered": "Delivered"
+    }
+  },
+  "push": {
+    "enabled": true,
+    "sound": "chime",
+    "askTitle": "Never miss an order update",
+    "askBody": "Turn on notifications to know when your order ships, arrives, and when we drop member-only offers.",
+    "askButton": "Turn on notifications",
+    "orders": {
+      "placed": {
+        "enabled": true,
+        "title": "Order {order} confirmed 🎉",
+        "body": "Thanks {name}! We’re packing it with love."
+      },
+      "shipped": {
+        "enabled": true,
+        "title": "Order {order} is on its way 🚚",
+        "body": "Shipped with {courier}. Tap to track it live."
+      },
+      "out": {
+        "enabled": true,
+        "title": "Arriving today 🛵",
+        "body": "Order {order} is out for delivery. Keep your phone handy!"
+      },
+      "delivered": {
+        "enabled": true,
+        "title": "Delivered ✅",
+        "body": "Order {order} has reached you. Enjoy, and tell us how you liked it!"
+      },
+      "cancelled": {
+        "enabled": true,
+        "title": "Order {order} cancelled",
+        "body": "Your order was cancelled. Any payment will be refunded to the original method."
+      }
+    },
+    "liveCard": true
+  },
+  "rewards": {
+    "enabled": true,
+    "showBar": true,
+    "barTitle": "Unlock rewards",
+    "items": [
+      {
+        "id": "pickle-gift",
+        "enabled": true,
+        "kind": "gift",
+        "title": "🎁 Pickle Mystery Gift",
+        "minAmount": 1999,
+        "variantId": "",
+        "giftTitle": "Pickle Mystery Gift",
+        "giftImage": "",
+        "qty": 1,
+        "autoAdd": true,
+        "lockedText": "Add ₹{left} more to get a FREE {gift}",
+        "unlockedText": "Yay! You’ve unlocked a FREE {gift} 🎉",
+        "startAt": "",
+        "endAt": ""
+      }
+    ]
+  },
+  "productPage": {
+    "heroHeight": 58,
+    "heroFit": "contain",
+    "heroBg": "#F7EFE6",
+    "showAplus": true,
+    "aplusGap": 6,
+    "aplusRadius": 0,
+    "aplusMargin": 0,
+    "showTabs": true,
+    "tabsTitle": "",
+    "showReviews": true,
+    "reviewsTitle": "Product Reviews",
+    "reviewsPerPage": 5,
+    "allowWrite": true,
+    "writeButton": "Write a review",
+    "thanks": "Thank you! Your review will show once it’s approved.",
+    "starColor": "#E1A140"
+  },
+  "webPages": {
+    "items": [
+      {
+        "id": "hampers",
+        "enabled": true,
+        "handle": "hampers",
+        "title": "Gift Hampers",
+        "hideSiteChrome": true,
+        "extraCss": "",
+        "showOnHome": true,
+        "homeImage": "",
+        "homeImageRatio": 2.4,
+        "homeEmoji": "🎁",
+        "homeTitle": "Parampara Gift Hampers",
+        "homeSub": "Festive hampers made the old way · Pre-book now",
+        "homeButton": "Explore"
+      }
+    ]
+  },
+  "cartFx": {
+    "toastEnabled": true,
+    "toastText": "Added to cart · earn {coins} coins",
+    "toastPosition": "top",
+    "toastAnim": "slideDown",
+    "toastIcon": "coin",
+    "toastEmoji": "🛒",
+    "toastBg": "#3E2415",
+    "toastTextColor": "#FBE6CF",
+    "toastIconColor": "#F3D48B",
+    "toastRadius": 18,
+    "toastSeconds": 2.2,
+    "fly": true,
+    "cartBounce": true,
+    "haptic": true,
+    "bigTick": false,
+    "confetti": false,
+    "sparkles": true,
+    "hearts": false,
+    "coins": false,
+    "petals": false,
+    "emoji": "",
+    "burstAmount": 26,
+    "burstSeconds": 1.6
+  },
+  "festival": {
+    "mode": "off",
+    "preset": "diwali",
+    "greeting": "",
+    "showGreeting": true,
+    "showBunting": true,
+    "effect": "auto",
+    "primaryColor": "",
+    "accentColor": "",
+    "headerColor": "",
+    "tabBarColor": "",
+    "bgColor": "",
+    "schedule": [
+      {
+        "id": "diwali-2026",
+        "enabled": true,
+        "preset": "diwali",
+        "startAt": "2026-11-05T00:00:00+05:30",
+        "endAt": "2026-11-12T23:59:00+05:30",
+        "greeting": ""
+      },
+      {
+        "id": "christmas-2026",
+        "enabled": true,
+        "preset": "christmas",
+        "startAt": "2026-12-22T00:00:00+05:30",
+        "endAt": "2027-01-01T23:59:00+05:30",
+        "greeting": ""
+      },
+      {
+        "id": "sankranti-2027",
+        "enabled": true,
+        "preset": "sankranti",
+        "startAt": "2027-01-12T00:00:00+05:30",
+        "endAt": "2027-01-16T23:59:00+05:30",
+        "greeting": ""
+      },
+      {
+        "id": "republic-2027",
+        "enabled": true,
+        "preset": "independence",
+        "startAt": "2027-01-25T00:00:00+05:30",
+        "endAt": "2027-01-26T23:59:00+05:30",
+        "greeting": ""
+      }
+    ]
+  },
+  "splash": {
+    "enabled": true,
+    "frequency": "every",
+    "kind": "logo",
+    "logoStyle": "glow",
+    "showTagline": true,
+    "logoColor": "",
+    "media": "",
+    "video": "",
+    "videoSound": false,
+    "fit": "cover",
+    "bg": "",
+    "seconds": 2.4,
+    "tapToSkip": true
+  },
+  "legal": {
+    "companyName": "Rosier Foods Private Limited",
+    "contactEmail": "support@rosierfoods.com",
+    "address": "Ghaziabad, Uttar Pradesh, India",
+    "updated": "15 October 2026",
+    "deletionDays": 7,
+    "privacyText": "{company} (\"Rosier\", \"we\", \"us\") runs the Rosier Foods app. This policy explains what information the app collects, why, and the choices you have. We follow India's Digital Personal Data Protection Act, 2023.\n\n## What we collect\n- Account details when you log in: your name, email address and phone number. Login uses your Rosier (Shopify) customer account, the same one you use on rosierfoods.com.\n- Delivery addresses you save, and your orders (items, amounts, delivery status).\n- Rosier Coins, wishlist and cart contents, so they work across the app.\n- A random app ID for this phone and, if you allow notifications, a notification token. We use these to send order updates and offers.\n- Basic usage: when the app is opened and which phone type (Android or iPhone). We don't track you across other apps or websites.\n- Reviews you choose to write (your name, rating, text), which are published on our product pages through Judge.me.\n- A profile photo, only if you add one. It stays on your phone and is not uploaded.\n\nWe do not collect your location, contacts, or payment card details. Payments are handled securely by Shopify's checkout and its payment partners.\n\n## How we use it\n- To let you log in, place orders, track deliveries and use Rosier Coins.\n- To send order updates and, if you allow, offers. You can turn notifications off any time in your phone's settings.\n- To improve the app and fix problems.\n\nWe never sell your personal data.\n\n## Who we share it with\n- Shopify, which runs our store, customer accounts and checkout.\n- Payment and delivery partners, only what they need to complete your order.\n- Judge.me, for reviews you choose to post.\n- Google Firebase and Apple, to deliver notifications.\n- Google Cloud (servers in Mumbai, India), which hosts the app's server and stores its data securely.\n\n## How long we keep it\nWe keep your account data while your account is active. When you delete your account we erase your personal data within {days} days, except records we must keep by law, such as invoices and tax (GST) records. App usage records (when the app was opened) are deleted automatically after 13 months.\n\n## Your choices and rights\n- See or update your details in the app (Profile → Account and Saved addresses).\n- Delete your account from the app (Profile → Delete my account) or at /delete-account.\n- Ask us anything about your data at {email}.\n- Not happy with how we handled your data? Contact our grievance officer (details below).\n\n## Children\nThe app is meant for adults (18+). We don't knowingly collect data from children.\n\n## Contact\n{company}\n{address}\nEmail: {email}\n\nWe may update this policy. If we make important changes, we'll tell you in the app.",
+    "deleteTitle": "Delete my account",
+    "deleteBody": "We’ll delete your Rosier account and personal data within {days} days — your name, email, phone, saved addresses, Rosier Coins and wishlist. Order and invoice records we must keep by law stay with us. This can’t be undone.",
+    "termsText": "These terms apply when you use the Rosier Foods app (\"the app\"), run by {company} (\"Rosier\", \"we\", \"us\"). By using the app you agree to them. If you don't agree, please don't use the app.\n\n## Using the app\n- The app is meant for people aged 18 and above.\n- You can browse without an account. To order, track orders, save addresses and earn Rosier Coins, you log in with your Rosier (Shopify) customer account using a code sent to your email.\n- Keep access to your email safe. You're responsible for orders placed from your account.\n\n## Orders, prices and payment\n- Orders placed in the app are orders on our online store. They follow our store terms of service: {storeTerms}\n- Prices, offers and stock can change. We confirm your order by email after payment.\n- Payments are processed by Shopify's checkout and its payment partners. We never see or store your card details.\n- Refunds, returns and cancellations follow our refund policy: {refunds}\n- Delivery times and charges follow our shipping policy: {shipping}\n\n## Rosier Coins, coupons and offers\n- Rosier Coins and coupons have no cash value and can't be transferred or exchanged for money.\n- How coins are earned and used is shown in the app. We may change or end these programmes, and we'll tell you in the app when we do.\n- We may cancel coins, coupons or orders that come from misuse, fraud or technical errors.\n\n## Reviews and content you post\n- Reviews must be honest and about your own experience of the product.\n- Don't post anything abusive, hateful, sexual, misleading, illegal, or anyone's personal details.\n- Reviews are checked before they're published, and we may remove any review that breaks these rules.\n- You can report a review in the app (tap \"Report\" on the review). We look at reports within 24 hours.\n- By posting a review, you let us show it in the app and on our website.\n\n## Notifications\nIf you allow notifications, we send order updates and, sometimes, offers. You can turn them off any time in your phone's settings.\n\n## Product information\nWe take care to show correct product details, photos and prices. Always read the product label for ingredients, allergens and storage instructions. Our products aren't meant to diagnose, treat or cure any disease. If you have a medical condition or allergy, please check with your doctor.\n\n## Fair use\nPlease don't misuse the app: no hacking, scraping, fake accounts, or using it for anything unlawful. We may suspend access if the app is misused.\n\n## Our content\nThe Rosier name, logo, photos, recipes and text in the app belong to {company}. Please don't copy them without our written permission.\n\n## Limits of our responsibility\nWe work hard to keep the app running and correct, but we can't promise it will always be available or error-free. To the extent the law allows, our responsibility for any order is limited to the amount you paid for it. Nothing in these terms takes away your rights under the Consumer Protection Act, 2019.\n\n## Deleting your account\nYou can delete your account any time: Profile → Delete my account, or on the /delete-account page.\n\n## Changes to these terms\nWe may update these terms. If the changes are important, we'll tell you in the app. Continuing to use the app means you accept the updated terms.\n\n## Law and disputes\nThese terms are governed by the laws of India. Courts at Ghaziabad, Uttar Pradesh, have jurisdiction.\n\n## Contact\n{company}\n{address}\nEmail: {email}",
+    "grievanceName": "Grievance Officer",
+    "grievanceEmail": "support@rosierfoods.com",
+    "grievancePhone": "",
+    "storeTermsUrl": "https://www.rosierfoods.com/policies/terms-of-service",
+    "refundUrl": "https://www.rosierfoods.com/policies/refund-policy",
+    "shippingUrl": "https://www.rosierfoods.com/policies/shipping-policy"
+  }
+}
