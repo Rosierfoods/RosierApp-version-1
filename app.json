@@ -1,0 +1,117 @@
+{
+  "expo": {
+    "name": "Rosier",
+    "slug": "rosier-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.rosierfoods.app",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      },
+      "privacyManifests": {
+        "NSPrivacyAccessedAPITypes": [
+          {
+            "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryUserDefaults",
+            "NSPrivacyAccessedAPITypeReasons": [
+              "CA92.1"
+            ]
+          },
+          {
+            "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryFileTimestamp",
+            "NSPrivacyAccessedAPITypeReasons": [
+              "C617.1"
+            ]
+          },
+          {
+            "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategorySystemBootTime",
+            "NSPrivacyAccessedAPITypeReasons": [
+              "35F9.1"
+            ]
+          },
+          {
+            "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryDiskSpace",
+            "NSPrivacyAccessedAPITypeReasons": [
+              "E174.1"
+            ]
+          }
+        ]
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#2A180C",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "package": "com.rosierfoods.app",
+      "allowBackup": false,
+      "blockedPermissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.SYSTEM_ALERT_WINDOW",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.READ_MEDIA_VIDEO",
+        "android.permission.READ_MEDIA_AUDIO",
+        "android.permission.READ_MEDIA_VISUAL_USER_SELECTED",
+        "android.permission.ACCESS_MEDIA_LOCATION"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "./plugins/withGoogleServices",
+      "expo-router",
+      "expo-image",
+      "expo-web-browser",
+      "expo-font",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#FBEBD8",
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 260
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Rosier uses your photos so you can set a profile picture.",
+          "cameraPermission": "Rosier uses your camera so you can take a profile picture.",
+          "microphonePermission": false
+        }
+      ],
+      "./plugins/withPaymentApps",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#A56312",
+          "defaultChannel": "rosier_default",
+          "sounds": [
+            "./assets/sounds/rosier_chime.wav",
+            "./assets/sounds/rosier_bell.wav",
+            "./assets/sounds/rosier_coin.wav",
+            "./assets/sounds/rosier_soft.wav"
+          ]
+        }
+      ],
+      "expo-background-task"
+    ],
+    "scheme": "rosier",
+    "experiments": {
+      "typedRoutes": false,
+      "baseUrl": "/preview-app",
+      "reactCompiler": true
+    },
+    "extra": {
+      "apiUrl": "https://rosier-app-backend.onrender.com"
+    }
+  }
+}
