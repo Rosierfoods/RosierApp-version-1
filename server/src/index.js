@@ -19,6 +19,7 @@ import * as legal from './legal.js';
 import * as analytics from './analytics.js';
 import * as catalog from './catalog.js';
 import * as website from './website.js';
+import * as offers from './offers.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const PORT = process.env.PORT || 4000;
@@ -83,6 +84,9 @@ app.get('/healthz', (_req, res) => {
   res.json({ ok: true, db: db.kind });
 });
 setInterval(() => push.poll().catch(() => {}), 5 * 60 * 1000).unref();
+// Website prices, offers and gift tiers from Shopify: every 15 minutes (one server copy does it).
+setInterval(() => offers.syncPrices().catch(() => {}), 5 * 60 * 1000).unref();
+setTimeout(() => offers.syncPrices().catch(() => {}), 20_000).unref();
 
 // The app (and the web preview) call these from anywhere; no cookies are involved.
 app.use(['/api/app', '/api/auth', '/api/customer', '/api/checkout', '/api/store', '/api/track', '/api/push', '/api/account'], (req, res, next) => {
@@ -132,6 +136,15 @@ async function storeProxy(res, path, type) {
   }
 }
 app.get('/api/store/products.json', wrap((req, res) => storeProxy(res, `/products.json?limit=${Math.min(250, Number(req.query.limit) || 250)}`, 'json')));
+// Prices after the store's automatic offers, and Shopify's gift tiers (same as the website).
+app.get(
+  '/api/store/prices',
+  wrap(async (_req, res) => {
+    res.set('Cache-Control', 'public, max-age=120');
+    const p = await offers.publicPrices();
+    res.json({ ...p, rewards: await offers.shopifyRewards() });
+  }),
+);
 app.get('/api/store/app-products', wrap(async (_req, res) => res.json(await catalog.publicList())));
 // Website content shown in the app (A+ banners, tabs, reviews, category banners).
 app.get('/api/store/product-extras/:handle', wrap(async (req, res) => (res.set('Cache-Control', 'public, max-age=600'), res.json(await website.productExtras(req.params.handle)))));
@@ -274,6 +287,16 @@ app.post(
   wrap(async (req, res) => {
     const { lines, code } = req.body || {};
     res.json(await shopify.checkCoupon({ lines, code }));
+  }),
+);
+
+// Shopify's own prices for the cart: line prices, offers and the total, like the website cart.
+app.post(
+  '/api/store/cart-quote',
+  limit(150, 10 * 60 * 1000),
+  wrap(async (req, res) => {
+    const { lines, codes } = req.body || {};
+    res.json(await offers.quoteCart({ lines, codes }));
   }),
 );
 
@@ -455,6 +478,8 @@ admin.post(
 admin.get('/app-products', wrap(async (_req, res) => res.json(await catalog.adminView())));
 admin.put('/app-products', wrap(async (req, res) => res.json(await catalog.saveSetting(req.body || {}, req.admin.email))));
 admin.get('/analytics', wrap(async (req, res) => res.json(await analytics.dashboard(Number(req.query.days) || 7))));
+admin.get('/offers/status', wrap(async (_req, res) => res.json(await offers.status())));
+admin.post('/offers/sync', wrap(async (_req, res) => res.json(await offers.syncPrices({ force: true }))));
 admin.get('/shopify/automatic-discounts', wrap(async (_req, res) => res.json({ rewards: await shopify.adminAutomaticRewards() })));
 admin.get('/shopify/discounts', wrap(async (_req, res) => res.json({ codes: await shopify.adminDiscountCodes() })));
 admin.get('/shopify/customers', wrap(async (req, res) => res.json(await shopify.adminCustomers({ search: String(req.query.search || ''), after: req.query.after || null }))));

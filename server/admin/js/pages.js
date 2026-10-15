@@ -3,7 +3,7 @@ import { api } from './api.js';
 import { renderFields } from './fields.js';
 import { confirmDialog, uploadZone } from './pickers.js';
 import { loadContent, onChange, sectionDef, setSection, state } from './store.js';
-import { previewSection, previewTryCartFx, previewTryEffect, previewTrySplash, previewUpdate } from './preview.js';
+import { previewSection, previewTryCartFx, previewTryEffect, previewTryPopup, previewTrySplash, previewUpdate } from './preview.js';
 import { pageOpened } from './inspector.js';
 import { add, clear, fill, clone, copyText, debounce, fileSize, fullDate, h, icon, randomId, relTime, toast } from './util.js';
 
@@ -178,6 +178,11 @@ export function sectionPage(root, key) {
       h('button', { type: 'button', class: 'btn btn-ghost', title: 'Plays the opening animation in the phone preview', onclick: () => previewTrySplash() }, icon('play-circle-outline'), 'Play in live preview'),
     );
   }
+  if (key === 'popup') {
+    extras.push(
+      h('button', { type: 'button', class: 'btn btn-ghost', title: 'Shows the popup with its animation in the phone preview, even if it is switched off', onclick: () => previewTryPopup() }, icon('play-circle-outline'), 'Show popup in preview'),
+    );
+  }
   if (key === 'cartFx') {
     extras.push(
       h(
@@ -209,6 +214,45 @@ export function sectionPage(root, key) {
     );
   }
   if (key === 'rewards') {
+    const info = h('span', { class: 'muted', style: 'font-size:12.5px' }, '');
+    const showStatus = (st) => {
+      fill(
+        info,
+        st.pricesAt
+          ? `Website prices synced ${relTime(new Date(st.pricesAt).toISOString())} (${st.variants} variants)${Array.isArray(st.rewards) ? ` · ${st.rewards.length} gift/offer tier${st.rewards.length === 1 ? '' : 's'} in Shopify` : ' · gift tiers need the Admin API (read_discounts)'}. Syncs by itself every 15 minutes.`
+          : 'Website prices not synced yet (needs the Storefront API in Shopify connection).',
+      );
+    };
+    api.get('/offers/status').then(showStatus).catch(() => {});
+    extras.push(
+      h(
+        'button',
+        {
+          type: 'button',
+          class: 'btn btn-ghost',
+          title: 'Reads the latest prices, automatic offers and gift tiers from Shopify now',
+          onclick: async (ev) => {
+            const b = ev.currentTarget;
+            b.disabled = true;
+            toast('Syncing with Shopify… this takes up to a minute.', 'info');
+            try {
+              const r = await api.post('/offers/sync', {});
+              if (r.reason) toast(r.reason, 'error');
+              else if (r.busy) toast('A sync is already running. Try again in a minute.', 'info');
+              else toast(`Synced ${r.variants} product prices${r.rewards != null ? ` and ${r.rewards} gift/offer tiers` : ''}. Phones pick them up within a few minutes.`, 'ok');
+              showStatus(await api.get('/offers/status'));
+            } catch (e) {
+              toast(e.message, 'error');
+            } finally {
+              b.disabled = false;
+            }
+          },
+        },
+        icon('sync'),
+        'Sync with website now',
+      ),
+      info,
+    );
     extras.push(
       h(
         'button',

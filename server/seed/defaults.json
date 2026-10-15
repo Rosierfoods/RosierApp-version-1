@@ -3,6 +3,8 @@
     "logo": "https://www.rosierfoods.com/cdn/shop/files/black-logo-01_7f1cd910-121f-49c7-bdcf-248849cd14f5.webp?width=600",
     "tagline": "Reviving the tradition of Bharat",
     "footerNote": "Made with love in Bharat 🇮🇳",
+    "animations": "system",
+    "pageTransition": "slide",
     "welcomeNotification": {
       "title": "Welcome to Rosier 🌾",
       "body": "We just added welcome coins to your wallet. Use them on your first order."
@@ -162,6 +164,11 @@
     "body": "",
     "buttonLabel": "Shop now",
     "link": "/collections/all",
+    "animation": "zoom",
+    "animSpeed": 1,
+    "delaySeconds": 1.5,
+    "backdrop": 60,
+    "closeOnTapOutside": true,
     "startAt": "",
     "endAt": ""
   },
@@ -1217,6 +1224,7 @@
   },
   "rewards": {
     "enabled": true,
+    "source": "manual",
     "showBar": true,
     "barTitle": "Unlock rewards",
     "items": [

@@ -249,6 +249,10 @@ export function previewTrySplash() {
   post({ type: 'rosier:trySplash' });
 }
 
+export function previewTryPopup() {
+  post({ type: 'rosier:tryPopup' });
+}
+
 export function previewTryCartFx() {
   post({ type: 'rosier:tryCartFx' });
 }
