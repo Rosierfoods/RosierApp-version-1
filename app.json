@@ -111,7 +111,7 @@
       "reactCompiler": true
     },
     "extra": {
-      "apiUrl": "https://rosier-app-backend.onrender.com"
+      "apiUrl": "   "apiUrl": "https://rosier-api-czh73sydqa-el.a.run.app""
     }
   }
 }
