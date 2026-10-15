@@ -13,6 +13,7 @@ import { tap } from '../../lib/haptics';
 import { API_URL, isLive, useContent } from '../../config/remote';
 import * as WebBrowser from 'expo-web-browser';
 import { DeleteAccountSheet } from '../../components/DeleteAccount';
+import { logOut } from '../../lib/logout';
 import { useMembership } from '../../lib/membership';
 import { registerPush, usePushState } from '../../lib/push';
 import { Linking, Platform } from 'react-native';
@@ -259,12 +260,7 @@ export default function Profile() {
       </View>
 
       <PressableScale
-        onPress={() => {
-          logout();
-          signOut().catch(() => {});
-          router.replace(introAfterLogout() ? '/onboarding' : '/home');
-          toast('You’re logged out', 'ok');
-        }}
+        onPress={logOut}
         style={{ marginTop: 20, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, paddingVertical: 14, borderRadius: 16, borderWidth: 1.5, borderColor: t.border }}
       >
         <MaterialCommunityIcons name="logout-variant" size={20} color={t.textSoft} />

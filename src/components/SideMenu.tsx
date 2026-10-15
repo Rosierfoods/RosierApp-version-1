@@ -1,4 +1,5 @@
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { logOut } from '../lib/logout';
 import { router } from 'expo-router';
 import React, { ReactNode, useEffect } from 'react';
 import { Pressable, Text, useWindowDimensions, View } from 'react-native';
@@ -86,11 +87,7 @@ export function MenuShell({ children }: { children: ReactNode }) {
             <Animated.View entering={FadeInLeft.delay(160).springify()}>
               <Pressable
                 onPress={() =>
-                  go(() => {
-                    logout();
-                    signOut().catch(() => {});
-                    router.replace(introAfterLogout() ? '/onboarding' : '/home');
-                  })
+                  go(() => logOut())
                 }
                 style={{ flexDirection: 'row', alignItems: 'center', gap: 16, paddingVertical: 10, marginTop: 20 }}
               >
