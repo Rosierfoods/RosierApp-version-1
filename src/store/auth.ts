@@ -39,6 +39,9 @@ export type ShopOrder = {
   financialStatus: string | null;
   fulfillmentStatus: string | null;
   statusPageUrl: string;
+  /** Set by the server when tracking is hidden for a product in this order (admin panel). */
+  trackingHidden?: 'details' | 'all';
+  trackingNote?: string;
   total: number;
   subtotal: number;
   shipping?: number;

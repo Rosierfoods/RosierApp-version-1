@@ -496,7 +496,7 @@ export async function trackOrder({ order, contact }) {
           customer { defaultEmailAddress { emailAddress } defaultPhoneNumber { phoneNumber } }
           shippingAddress { address1 address2 city province zip phone }
           totalPriceSet { shopMoney { amount } }
-          lineItems(first: 30) { nodes { title variantTitle quantity image { url } } }
+          lineItems(first: 30) { nodes { title variantTitle quantity image { url } variant { id } product { handle } } }
           fulfillments(first: 10) {
             createdAt estimatedDeliveryAt displayStatus status
             trackingInfo(first: 3) { company number url }
@@ -522,7 +522,7 @@ export async function trackOrder({ order, contact }) {
     statusPageUrl: o.statusPageUrl ?? '',
     total: money(o.totalPriceSet),
     address: addressLine(o.shippingAddress),
-    items: (o.lineItems?.nodes ?? []).map((l) => ({ title: l.title, variant: l.variantTitle ?? '', qty: l.quantity, image: l.image?.url ?? '' })),
+    items: (o.lineItems?.nodes ?? []).map((l) => ({ title: l.title, variant: l.variantTitle ?? '', qty: l.quantity, image: l.image?.url ?? '', variantId: l.variant?.id ? String(l.variant.id).split('/').pop() : '', handle: l.product?.handle ?? '' })),
     shipments: (o.fulfillments ?? []).map((f) =>
       shipment({
         status: f.status,

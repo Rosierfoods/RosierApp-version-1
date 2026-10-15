@@ -1120,6 +1120,23 @@ export const SCHEMA = [
       { key: 'orderLabel', type: 'text', label: 'Order number label' },
       { key: 'contactLabel', type: 'text', label: 'Email / phone label' },
       { key: 'help', type: 'textarea', label: 'Note under the tracking timeline' },
+      {
+        key: 'hideForProducts',
+        type: 'products',
+        label: 'Hide tracking for these products',
+        help: 'If an order has any of these products, the customer doesn’t see its tracking details in the app (for orders with one or more of them).',
+      },
+      {
+        key: 'hideMode',
+        type: 'select',
+        label: 'What to hide for those orders',
+        options: [
+          { value: 'details', label: 'Courier name, tracking number, tracking link and courier updates (still show Shipped / Delivered)' },
+          { value: 'all', label: 'All delivery updates (only show the message below)' },
+        ],
+      },
+      { key: 'hiddenMessage', type: 'textarea', label: 'Message shown instead', help: 'e.g. “This one ships from our partner farm. We’ll call you before delivery.”' },
+      { key: 'hideNotifications', type: 'boolean', label: 'Also don’t send Shipped / Out for delivery / Delivered notifications for those orders', help: 'When off, notifications still go out but without the courier name.' },
       { key: 'websiteTrackUrl', type: 'text', label: 'Courier tracking page (optional)', help: 'Used when Shopify has a tracking number but no link. Put {number} where the tracking number goes, e.g. https://shiprocket.co/tracking/{number}' },
       {
         key: 'steps',

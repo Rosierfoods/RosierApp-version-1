@@ -1178,6 +1178,10 @@
     "orderLabel": "Order number",
     "contactLabel": "Email or phone",
     "help": "Shipped orders show the courier and tracking number here. Most orders reach you in 3–7 days.",
+    "hideForProducts": [],
+    "hideMode": "details",
+    "hiddenMessage": "Tracking details aren’t available for this order. We’ll keep you posted when it’s on the way.",
+    "hideNotifications": false,
     "websiteTrackUrl": "",
     "steps": {
       "ordered": "Order placed",

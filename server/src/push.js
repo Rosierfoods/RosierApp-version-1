@@ -12,6 +12,7 @@ import crypto from 'node:crypto';
 import { query } from './db.js';
 import * as shopify from './shopify.js';
 import * as fcm from './fcm.js';
+import * as trackingRules from './trackingRules.js';
 
 const EXPO_URL = process.env.EXPO_PUSH_URL || 'https://exp.host/--/api/v2/push/send';
 const RECEIPTS_URL = process.env.EXPO_RECEIPTS_URL || EXPO_URL.replace(/\/send$/, '/getReceipts');
@@ -263,7 +264,8 @@ export async function afterPublish() {
 const ORDER_FIELDS = `id name createdAt cancelledAt displayFulfillmentStatus email
   customer { id firstName }
   customAttributes { key value }
-  fulfillments(first: 5) { displayStatus trackingInfo(first: 1) { company number } }`;
+  fulfillments(first: 5) { displayStatus trackingInfo(first: 1) { company number } }
+  lineItems(first: 30) { nodes { title variant { id } product { handle } } }`;
 
 /** placed / shipped / out / delivered / cancelled */
 function statusOf(o) {
@@ -301,14 +303,18 @@ export async function checkOrder(o, { quietIfNew = false } = {}) {
   const on = cfg.enabled !== false && cfg.orders?.[status]?.enabled !== false;
   // First time we see an older order: just remember where it is, don't message.
   const old = Date.now() - Date.parse(o.createdAt) > 2 * 3600 * 1000;
-  const silent = !on || (quietIfNew && already.size === 0 && old);
+  // Admin panel → Order tracking: orders with "tracking hidden" products.
+  const hidden = ['shipped', 'out', 'delivered'].includes(status)
+    ? await trackingRules.notificationRule((o.lineItems?.nodes ?? []).map((l) => ({ title: l.title, variantId: l.variant?.id, handle: l.product?.handle }))).catch(() => null)
+    : null;
+  const silent = !on || (quietIfNew && already.size === 0 && old) || !!hidden?.stop;
   const tokens = silent ? [] : await devicesForOrder(o);
   const t = cfg.orders?.[status] ?? {};
   const fill = (s) =>
     String(s || '')
       .replaceAll('{order}', o.name || '')
       .replaceAll('{name}', o.customer?.firstName || 'there')
-      .replaceAll('{courier}', o.fulfillments?.[0]?.trackingInfo?.[0]?.company || 'our courier');
+      .replaceAll('{courier}', (!hidden && o.fulfillments?.[0]?.trackingInfo?.[0]?.company) || 'our courier');
   const title = fill(t.title || DEFAULT_TEXT[status][0]);
   const body = fill(t.body || DEFAULT_TEXT[status][1]);
   // Claim this order update first, so it is sent exactly once even when a webhook and the

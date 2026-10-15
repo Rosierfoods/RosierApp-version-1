@@ -20,6 +20,7 @@ import * as analytics from './analytics.js';
 import * as catalog from './catalog.js';
 import * as website from './website.js';
 import * as offers from './offers.js';
+import * as trackingRules from './trackingRules.js';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const PORT = process.env.PORT || 4000;
@@ -233,7 +234,15 @@ app.get(
 app.post('/api/auth/ticket', wrap(async (req, res) => res.json(await shopify.redeemTicket(String(req.body?.ticket || '')))));
 app.post('/api/auth/refresh', wrap(async (req, res) => res.json(await shopify.refreshLogin(String(req.body?.refreshToken || '')))));
 app.post('/api/auth/logout', wrap(async (req, res) => res.json({ url: await shopify.logoutUrl(String(req.body?.idToken || ''), baseUrl(req), String(req.body?.redirect || '')) })));
-app.get('/api/customer/me', wrap(async (req, res) => res.json(await shopify.customerProfile(req.get('X-Customer-Token')))));
+app.get(
+  '/api/customer/me',
+  wrap(async (req, res) => {
+    const me = await shopify.customerProfile(req.get('X-Customer-Token'));
+    // Admin panel → Order tracking: tracking hidden for chosen products.
+    me.orders = await trackingRules.applyToOrders(me.orders, (o) => o.items);
+    res.json(me);
+  }),
+);
 // "Delete my account" from the app (logged-in customers; guests just clear the app).
 app.post(
   '/api/account/delete',
@@ -320,7 +329,9 @@ app.post(
   limit(12, 10 * 60 * 1000),
   wrap(async (req, res) => {
     const { order, contact } = req.body || {};
-    res.json(await shopify.trackOrder({ order, contact }));
+    const found = await shopify.trackOrder({ order, contact });
+    const [safe] = await trackingRules.applyToOrders([found], (o) => o.items);
+    res.json(safe);
   }),
 );
 

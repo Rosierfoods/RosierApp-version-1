@@ -24,6 +24,8 @@ export type TrackOrder = {
   address?: string;
   shipments?: Shipment[];
   items?: { title: string; variant?: string; qty: number; image?: string }[];
+  trackingHidden?: 'details' | 'all';
+  trackingNote?: string;
 };
 
 const LEVEL: Record<string, number> = {
@@ -90,6 +92,7 @@ export function trackState(o: TrackOrder) {
 /** Short status for order lists. */
 export function trackSummary(o: TrackOrder): { label: string; tone: 'green' | 'gold' | 'danger' } {
   if (o.cancelled) return { label: 'Cancelled', tone: 'danger' };
+  if (o.trackingHidden === 'all') return { label: 'Order confirmed', tone: 'gold' };
   const s = trackState(o);
   if (s.problem) return { label: eventLabel(s.problem), tone: 'danger' };
   return { label: ['Being packed', 'Packed', 'Shipped', 'Out for delivery', 'Delivered'][s.level], tone: s.level === 4 ? 'green' : 'gold' };
@@ -122,16 +125,24 @@ export function TrackingView({ order }: { order: TrackOrder }) {
           Order {order.name} · {fmt(order.processedAt)}
         </Text>
         <Text style={{ fontFamily: fonts.serifBold, fontSize: 26, color: '#FBE6CF', marginTop: 4 }}>
-          {order.cancelled ? 'Cancelled' : st.problem ? eventLabel(st.problem) : steps[st.level]}
+          {order.cancelled ? 'Cancelled' : order.trackingHidden === 'all' ? cfg.steps.confirmed : st.problem ? eventLabel(st.problem) : steps[st.level]}
         </Text>
-        {!order.cancelled && st.level < 4 && st.eta && (
+        {!order.cancelled && order.trackingHidden !== 'all' && st.level < 4 && st.eta && (
           <Text style={{ fontFamily: fonts.sansMedium, fontSize: 13, color: '#F3D48B', marginTop: 4 }}>Expected by {fmt(st.eta)}</Text>
         )}
         {!order.cancelled && st.level === 4 && st.at[4] && <Text style={{ fontFamily: fonts.sansMedium, fontSize: 13, color: '#9BD49B', marginTop: 4 }}>Delivered on {fmt(st.at[4], true)}</Text>}
       </Animated.View>
 
+      {/* Tracking hidden for this order (admin panel → Order tracking) */}
+      {!order.cancelled && !!order.trackingHidden && (
+        <Animated.View entering={FadeInDown.delay(40).springify()} style={[card, { flexDirection: 'row', gap: 12, alignItems: 'flex-start' }]}>
+          <MaterialCommunityIcons name="information-outline" size={22} color={t.primary} />
+          <Text style={{ flex: 1, fontFamily: fonts.sans, fontSize: 14, color: t.text, lineHeight: 20 }}>{order.trackingNote}</Text>
+        </Animated.View>
+      )}
+
       {/* Timeline */}
-      {!order.cancelled && (
+      {!order.cancelled && order.trackingHidden !== 'all' && (
         <Animated.View entering={FadeInDown.delay(60).springify()} style={card}>
           {steps.map((label, i) => {
             const done = i <= st.level;
