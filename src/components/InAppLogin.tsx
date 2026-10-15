@@ -13,12 +13,29 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ActivityIndicator, AppState, Modal, Platform, Pressable, Text, View } from 'react-native';
 import Animated, { FadeInUp } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { API_URL } from '../config/remote';
 import { completeLogin, loginUrls } from '../store/auth';
 import { fonts, useTheme } from '../theme';
 
 const CODE = /\b(\d{6})\b/;
 /** The link Shopify login ends on: rosier://auth?ticket=… (or ?error=…). */
 const isAppLink = (u?: string) => !!u && /^(rosier|exp|exps):\/\//i.test(u) && /[?&](ticket|error)=/.test(u);
+
+/**
+ * Pages the login window must never show: our own server outside the login steps (e.g. the
+ * admin panel) and the shop's website (Shopify's "Go to store" button). If the window tries
+ * to open one, the login didn't finish — close it and tell them, instead of showing that page.
+ */
+function isStray(u?: string) {
+  if (!u || !/^https?:\/\//i.test(u)) return false;
+  try {
+    const url = new URL(u);
+    const api = API_URL ? new URL(API_URL) : null;
+    if (api && url.host === api.host && !url.pathname.startsWith('/auth/')) return true;
+    if (/^(www\.)?rosierfoods\.com$/i.test(url.host)) return true;
+  } catch {}
+  return false;
+}
 
 function script(email: string) {
   return `(function(){
@@ -112,6 +129,12 @@ export function InAppLogin({ email, onClose, onDone }: { email: string; onClose:
     };
   }, [codeStep]);
 
+  const stray = () => {
+    if (handled.current) return;
+    handled.current = true;
+    onDone(false, 'Login didn’t finish. Please try again.');
+  };
+
   const finish = async (url: string) => {
     if (handled.current) return;
     handled.current = true;
@@ -160,6 +183,7 @@ export function InAppLogin({ email, onClose, onDone }: { email: string; onClose:
             // Backups: catch the jump back to the app however the web view reports it.
             onNavigationStateChange={(nav: any) => {
               if (isAppLink(nav?.url)) finish(nav.url);
+              else if (isStray(nav?.url)) stray();
             }}
             onLoadStart={(e: any) => {
               if (isAppLink(e?.nativeEvent?.url)) finish(e.nativeEvent.url);
@@ -172,6 +196,10 @@ export function InAppLogin({ email, onClose, onDone }: { email: string; onClose:
               // Shopify sends them back to rosier://auth?ticket=… — finish the login right here.
               if (isAppLink(req.url)) {
                 finish(req.url);
+                return false;
+              }
+              if (req.isTopFrame !== false && isStray(req.url)) {
+                stray();
                 return false;
               }
               return true;

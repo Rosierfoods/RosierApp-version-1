@@ -523,7 +523,9 @@ app.get('/', (req, res) => {
   // Coming back from Shopify sign-out → back into the app.
   const back = shopify.appAfterLogout(req.query.state);
   if (back) return backToApp(res, `${back}${back.includes('?') ? '&' : '?'}logged_out=1`, true, 'You’re logged out');
-  res.redirect('/admin/');
+  // Customers who land here (e.g. Shopify's "Go to store" button) go to the shop, never the admin panel.
+  // The admin panel is only at /admin.
+  res.redirect((process.env.STORE_URL || 'https://www.rosierfoods.com').replace(/\/$/, '') + '/');
 });
 
 app.use((err, _req, res, _next) => {
