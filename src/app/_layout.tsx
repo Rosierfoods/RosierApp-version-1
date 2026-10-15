@@ -15,12 +15,13 @@ import * as WebBrowser from 'expo-web-browser';
 import React, { useEffect, useState } from 'react';
 import { AppState, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { ReducedMotionConfig, ReduceMotion } from 'react-native-reanimated';
 import { SafeAreaInsetsContext, SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { FloatingTabBar } from '../components/TabBar';
 import { FlyHost } from '../components/FlyToCart';
 import { RemoteGate } from '../components/RemoteGate';
 import { SeasonalEffects } from '../components/SeasonalEffects';
-import { getContent, useRemote } from '../config/remote';
+import { getContent, useContent, useRemote } from '../config/remote';
 import { creditNewOrders, hasTokens, loadCustomer } from '../store/auth';
 import { reportRoute, startEditorBridge } from '../lib/editorBridge';
 import { startNotifications, startUsagePings, syncPush } from '../lib/push';
@@ -186,6 +187,11 @@ export default function RootLayout() {
     return () => sub.remove();
   }, [hydrated]);
 
+  // Admin panel → App settings: animations on/off and how screens change.
+  const general = useContent('general') as any;
+  const motion = general?.animations === 'off' ? ReduceMotion.Always : general?.animations === 'on' ? ReduceMotion.Never : ReduceMotion.System;
+  const calm = general?.animations === 'off' || general?.pageTransition === 'none';
+  const pageAnim = calm ? 'none' : general?.pageTransition === 'fade' ? 'fade' : 'slide_from_right';
   const showBar = !NO_BOTTOM_BAR.test(pathname || '/');
   if (!loaded || !hydrated) return <View style={{ flex: 1, backgroundColor: '#FBEBD8' }} />;
 
@@ -193,18 +199,19 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1, backgroundColor: t.bg }}>
       <SafeAreaProvider>
         <StatusBar style={t.mode === 'dark' ? 'light' : 'dark'} />
+        <ReducedMotionConfig mode={motion} />
         <BottomBarArea show={showBar}>
-        <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: t.bg }, animation: 'slide_from_right' }}>
+        <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: t.bg }, animation: pageAnim }}>
           <Stack.Screen name="index" options={{ animation: 'none' }} />
-          <Stack.Screen name="onboarding" options={{ animation: 'fade' }} />
-          <Stack.Screen name="(tabs)" options={{ animation: 'fade' }} />
-          <Stack.Screen name="product/[handle]" options={{ animation: 'fade_from_bottom' }} />
-          <Stack.Screen name="search" options={{ animation: 'fade' }} />
+          <Stack.Screen name="onboarding" options={{ animation: calm ? 'none' : 'fade' }} />
+          <Stack.Screen name="(tabs)" options={{ animation: calm ? 'none' : 'fade' }} />
+          <Stack.Screen name="product/[handle]" options={{ animation: calm ? 'none' : 'fade_from_bottom' }} />
+          <Stack.Screen name="search" options={{ animation: calm ? 'none' : 'fade' }} />
           <Stack.Screen name="preview" options={{ animation: 'none' }} />
-          <Stack.Screen name="login" options={{ animation: 'fade_from_bottom' }} />
+          <Stack.Screen name="login" options={{ animation: calm ? 'none' : 'fade_from_bottom' }} />
           <Stack.Screen name="auth" options={{ animation: 'none' }} />
-          <Stack.Screen name="track" options={{ animation: 'fade_from_bottom' }} />
-          <Stack.Screen name="page/[handle]" options={{ animation: 'fade_from_bottom' }} />
+          <Stack.Screen name="track" options={{ animation: calm ? 'none' : 'fade_from_bottom' }} />
+          <Stack.Screen name="page/[handle]" options={{ animation: calm ? 'none' : 'fade_from_bottom' }} />
         </Stack>
         </BottomBarArea>
         <SeasonalEffects />

@@ -61,6 +61,11 @@ function Line({ line }: { line: CartLine }) {
               <Text style={{ fontFamily: fonts.sansBold, fontSize: 17, color: t.text }}>{rupee(variant.price * line.qty, true)}</Text>
               {variant.mrp > variant.price && <Text style={{ fontFamily: fonts.sans, fontSize: 12, color: t.textMute, textDecorationLine: 'line-through' }}>{rupee(variant.mrp * line.qty, true)}</Text>}
             </View>
+            {!!line.offers?.length && (
+              <Text numberOfLines={1} style={{ fontFamily: fonts.sansMedium, fontSize: 11, color: t.green, marginTop: 2 }}>
+                {line.offers.map((o) => o.title).join(' + ')} applied
+              </Text>
+            )}
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 6 }}>
               {variant.available ? (
                 <Text style={{ fontFamily: fonts.sans, fontSize: 11, color: t.danger }}>Earn {Math.floor(variant.price * line.qty * COINS.earnPerRupee)} coins</Text>
@@ -113,7 +118,7 @@ export default function Cart() {
   const couponCode = useCoupon((s) => s.code);
   const couponsOn = useContent('coupons').enabled;
   const checkLines = sum.selected.map((l) => ({ variantId: l.variantId, qty: l.qty }));
-  const couponCheck = useCouponCheck(couponsOn ? couponCode : null, checkLines, sum.subtotal - sum.voucherValue);
+  const couponCheck = useCouponCheck(couponsOn ? couponCode : null, checkLines, sum.total);
   const couponSaving = couponCheck?.state === 'ok' ? Math.min(couponCheck.saving, sum.total) : 0;
   const couponUsable = !!couponCode && couponsOn && couponCheck?.state !== 'invalid';
   // Members: their discount (Shopify applies it at checkout to logged-in members).
@@ -122,9 +127,9 @@ export default function Cart() {
   const memberPct = member.active && benefits.cartMemberDiscount ? Number(benefits.memberDiscountPercent) || 0 : 0;
   const memberSaving = memberPct ? Math.round(((sum.total - couponSaving) * memberPct) / 100) : 0;
   const toPay = Math.max(0, sum.total - couponSaving - memberSaving);
-  const coinsEarned = couponSaving || memberSaving ? coinsForAmount(Math.max(0, sum.subtotal - sum.voucherValue - couponSaving - memberSaving)) : sum.coins;
+  const coinsEarned = couponSaving || memberSaving ? coinsForAmount(Math.max(0, sum.total - couponSaving - memberSaving)) : sum.coins;
   // Website-style rewards: free gifts added automatically above a cart amount.
-  const rewards = useRewards(sum.subtotal);
+  const rewards = useRewards(sum.subtotal - sum.orderOff);
   const codes = [sum.voucherOk ? sum.voucher!.code : '', couponUsable ? couponCode! : ''].filter(Boolean);
 
   const checkout = async (skipLoginPrompt = false) => {
@@ -250,7 +255,7 @@ export default function Cart() {
           <Text style={{ fontFamily: fonts.sans, fontSize: 11, color: t.textMute }}>← swipe to remove</Text>
         </View>
 
-        <RewardsBar amount={sum.subtotal} />
+        <RewardsBar amount={sum.subtotal - sum.orderOff} />
 
         <View style={{ gap: 14 }}>
           {sum.lines.map((l, i) => (
@@ -310,23 +315,26 @@ export default function Cart() {
           )}
         </Animated.View>
 
-        <CouponBox check={couponCheck} subtotal={sum.subtotal - sum.voucherValue} />
+        <CouponBox check={couponCheck} subtotal={sum.total} />
 
         {/* Bill */}
         <Animated.View layout={LinearTransition} style={{ marginTop: 16, backgroundColor: t.cardStrong, borderRadius: 22, padding: 16, borderWidth: 1, borderColor: t.border }}>
           <Text style={{ fontFamily: fonts.serif, fontSize: 18, color: t.heading, marginBottom: 6 }}>Bill details</Text>
           <Row label="Item total (MRP)" value={rupee(sum.mrp, true)} />
           {sum.savings > 0 && <Row label={`Rosier offer (${pct(sum.savings, sum.mrp)}% off)`} value={`− ${rupee(sum.savings, true)}`} color={t.green} />}
+          {sum.orderOffers.map((o, i) => (
+            <Row key={`${o.title}${i}`} label={`${o.title} (${pct(o.amount, sum.subtotal)}% off)`} value={`− ${rupee(o.amount, true)}`} color={t.green} />
+          ))}
           {sum.voucherValue > 0 && <Row label={`Coins voucher (${pct(sum.voucherValue, sum.subtotal)}% off)`} value={`− ${rupee(sum.voucherValue, true)}`} color={t.green} />}
-          {couponSaving > 0 && <Row label={`Coupon ${couponCheck!.code} (${pct(couponSaving, sum.subtotal - sum.voucherValue)}% off)${couponCheck!.confirmed ? '' : ' · est.'}`} value={`− ${rupee(couponSaving, true)}`} color={t.green} />}
+          {couponSaving > 0 && <Row label={`Coupon ${couponCheck!.code} (${pct(couponSaving, sum.total)}% off)${couponCheck!.confirmed ? '' : ' · est.'}`} value={`− ${rupee(couponSaving, true)}`} color={t.green} />}
           {memberSaving > 0 && <Row label={`Member discount (${memberPct}% off)`} value={`− ${rupee(memberSaving, true)}`} color={t.green} />}
           <Row label="Shipping" value={member.active ? 'Free for members' : 'At checkout'} color={member.active ? t.green : undefined} />
           <View style={{ height: 1, backgroundColor: t.border, marginVertical: 8 }} />
           <Row label="To pay" value={rupee(toPay, true)} bold />
-          {sum.savings + sum.voucherValue + couponSaving + memberSaving > 0 && (
+          {sum.savings + sum.orderOff + sum.voucherValue + couponSaving + memberSaving > 0 && (
             <View style={{ marginTop: 10, backgroundColor: t.greenSoft, borderRadius: 12, padding: 10, flexDirection: 'row', gap: 8, alignItems: 'center' }}>
               <MaterialCommunityIcons name="party-popper" size={18} color={t.green} />
-              <Text style={{ fontFamily: fonts.sansMedium, fontSize: 12.5, color: t.green, flex: 1 }}>You're saving {rupee(sum.savings + sum.voucherValue + couponSaving + memberSaving)} ({pct(sum.savings + sum.voucherValue + couponSaving + memberSaving, sum.mrp)}% off MRP) on this order</Text>
+              <Text style={{ fontFamily: fonts.sansMedium, fontSize: 12.5, color: t.green, flex: 1 }}>You're saving {rupee(sum.savings + sum.orderOff + sum.voucherValue + couponSaving + memberSaving)} ({pct(sum.savings + sum.orderOff + sum.voucherValue + couponSaving + memberSaving, sum.mrp)}% off MRP) on this order</Text>
             </View>
           )}
         </Animated.View>

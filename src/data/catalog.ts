@@ -7,6 +7,7 @@ const snapshot: Product[] = require('./catalog.json');
 import type { CategoryId, Product, Variant } from './types';
 import { Platform } from 'react-native';
 import { API_URL, getContent, useContent } from '../config/remote';
+import { applyLivePrices, useLivePrices } from '../lib/livePrices';
 
 export const STORE_URL = 'https://www.rosierfoods.com';
 
@@ -90,6 +91,8 @@ export const useCatalog = create<CatalogState>()(
         if (get().loading) return;
         set({ loading: true });
         try {
+          // The website's real prices (after its automatic offers), fetched alongside.
+          const live = useLivePrices.getState().refresh();
           const res = await fetch(storeFetchUrl('/products.json?limit=250'));
           const json = await res.json();
           let raw: any[] = json.products ?? [];
@@ -158,7 +161,8 @@ export const useCatalog = create<CatalogState>()(
             const hide = new Set(rules.hide);
             final = merged.filter((p) => !hide.has(p.handle));
           }
-          set({ products: final, updatedAt: Date.now() });
+          await live;
+          set({ products: applyLivePrices(final, useLivePrices.getState().prices), updatedAt: Date.now() });
         } catch {
           // Offline or blocked — keep the cached catalogue.
         } finally {
@@ -229,7 +233,8 @@ export function applyOverrides(products: Product[], overrides: Override[]): Prod
 export const useProducts = () => {
   const products = useCatalog((s) => s.products);
   const overrides = useContent('products').overrides as Override[];
-  return useMemo(() => applyOverrides(products, overrides), [products, overrides]);
+  const live = useLivePrices((s) => s.prices);
+  return useMemo(() => applyLivePrices(applyOverrides(products, overrides), live), [products, overrides, live]);
 };
 
 /** Turns an image value from the admin panel into a URL: "product:<handle>" means that product's first photo. */

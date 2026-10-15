@@ -58,6 +58,10 @@ export function startEditorBridge() {
       // eslint-disable-next-line @typescript-eslint/no-require-imports
       const { useTrySplash } = require('../components/OpeningSplash');
       useTrySplash.setState((s: any) => ({ n: s.n + 1 }));
+    } else if (msg.type === 'rosier:tryPopup') {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const { useTryPopup } = require('../components/RemoteGate');
+      useTryPopup.setState((s: any) => ({ n: s.n + 1 }));
     } else if (msg.type === 'rosier:tryCartFx') {
       // eslint-disable-next-line @typescript-eslint/no-require-imports
       require('./cartFx').cartAdded({ coins: 29, title: 'Gir Cow A2 Ghee' });

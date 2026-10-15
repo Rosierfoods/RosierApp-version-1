@@ -1,11 +1,11 @@
 /**
- * Crash guard. If the app closes by itself within a few seconds of opening twice in a
- * row (a crash loop), the next open starts in "safe mode": the intro is shown in a
+ * Crash guard. If the app closes by itself within a few seconds of opening three times
+ * in a row (a crash loop), the next open starts in "safe mode": the intro is shown in a
  * light version (no videos or heavy effects), so the app always opens again. Safe
  * mode clears itself once the app has run normally for a few seconds.
  */
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Platform } from 'react-native';
+import { AppState, Platform } from 'react-native';
 import { create } from 'zustand';
 
 const KEY = 'rosier-boot';
@@ -24,13 +24,24 @@ export async function startBootGuard() {
     // Opens that never reached "stable" in a row (each one closed within a few seconds).
     const recent = !!prev && Date.now() - Number(prev.at || 0) < 24 * 3600 * 1000;
     const fails = recent && prev.stable === false ? Number(prev.fails || 1) : 0;
-    safe = fails >= 2;
+    // Three quick closes in a row before light mode kicks in (two was too eager).
+    safe = fails >= 3;
     await AsyncStorage.setItem(KEY, JSON.stringify({ at: Date.now(), stable: false, fails: fails + 1 }));
   } catch {
     /* storage unavailable */
   }
   useBoot.setState({ ready: true, safe });
-  setTimeout(markStable, STABLE_AFTER);
+  // A crash never sends the app to the background first. So if the person leaves the app
+  // themselves (home button, switching apps) within the first seconds, that's not a crash.
+  let done = false;
+  const ok = () => {
+    if (done) return;
+    done = true;
+    sub.remove();
+    markStable();
+  };
+  const sub = AppState.addEventListener('change', (st) => st !== 'active' && ok());
+  setTimeout(ok, STABLE_AFTER);
 }
 
 /** Call when something finished normally (e.g. the intro), so a crash later doesn't count. */

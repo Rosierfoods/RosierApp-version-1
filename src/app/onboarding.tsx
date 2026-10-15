@@ -76,15 +76,19 @@ function SlideVideo({ uri, poster, active, sound, w, h, radius = 0, muteTop = 0,
   const { status } = useEvent(player, 'statusChange', { status: player.status });
   const [muted, setMuted] = useState(!sound);
   useEffect(() => {
-    if (active) player.play();
-    else player.pause();
+    try {
+      if (active) player.play();
+      else player.pause();
+    } catch {
+      /* player already released */
+    }
   }, [active, player]);
   useEffect(() => {
     player.muted = muted;
   }, [muted, player]);
   return (
     <View style={{ width: w, height: h, overflow: 'hidden', borderRadius: radius, backgroundColor: '#2B1A10' }}>
-      <VideoView player={player} style={{ width: w, height: h }} contentFit={fit} nativeControls={false} />
+      {status !== 'error' && <VideoView player={player} style={{ width: w, height: h }} contentFit={fit} nativeControls={false} />}
       {!!poster && status !== 'readyToPlay' && <Img source={poster} style={{ position: 'absolute', top: 0, left: 0, width: w, height: h }} contentFit={fit} />}
       <Pressable
         onPress={() => setMuted((m) => !m)}

@@ -7,6 +7,7 @@ import React, { useEffect, useMemo, useRef } from 'react';
 import { Text, View } from 'react-native';
 import Animated, { Easing, FadeIn, FadeInDown, ZoomIn, useAnimatedStyle, useSharedValue, withSequence, withSpring, withTiming } from 'react-native-reanimated';
 import { Content, isLive, useContent } from '../config/remote';
+import { useLivePrices } from '../lib/livePrices';
 import { success } from '../lib/haptics';
 import { rupee } from '../lib/format';
 import { fonts, useTheme } from '../theme';
@@ -25,15 +26,18 @@ const fillText = (s: string, r: Reward, left: number) =>
 
 export function useRewards(amount: number) {
   const cfg = useContent('rewards');
+  const synced = useLivePrices((s) => s.rewards);
   return useMemo(() => {
-    const tiers = cfg.enabled ? (cfg.items ?? []).filter((r) => r && isLive(r) && Number(r.minAmount) > 0).sort((a, b) => a.minAmount - b.minAmount) : [];
+    // "Same as the website": Shopify's automatic gift offers (falls back to the list if Shopify has none).
+    const list = (cfg as any).source === 'shopify' && synced.length ? synced : cfg.items;
+    const tiers = cfg.enabled ? (list ?? []).filter((r) => r && isLive(r) && Number(r.minAmount) > 0).sort((a, b) => a.minAmount - b.minAmount) : [];
     const unlocked = tiers.filter((r) => amount >= r.minAmount);
     const next = tiers.find((r) => amount < r.minAmount) ?? null;
     const gifts: GiftLine[] = unlocked
       .filter((r) => r.kind === 'gift' && r.autoAdd !== false && /^\d+$/.test(String(r.variantId).trim()))
       .map((r) => ({ variantId: Number(String(r.variantId).trim()), qty: Math.max(1, Number(r.qty) || 1), title: r.giftTitle || r.title, image: r.giftImage, reward: r.id }));
     return { cfg, tiers, unlocked, next, gifts };
-  }, [cfg, amount]);
+  }, [cfg, amount, synced]);
 }
 
 export function RewardsBar({ amount }: { amount: number }) {

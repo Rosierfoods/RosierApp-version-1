@@ -1,7 +1,8 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React, { useEffect, useState } from 'react';
 import { Linking, Modal, Platform, Pressable, Text, useWindowDimensions, View } from 'react-native';
-import Animated, { FadeIn, FadeInDown, ZoomIn } from 'react-native-reanimated';
+import Animated, { BounceIn, FadeIn, FadeInDown, FadeInUp, FlipInXUp, PinwheelIn, SlideInDown, SlideInUp, ZoomIn } from 'react-native-reanimated';
+import { create } from 'zustand';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { APP_VERSION, compareVersions, isLive, useContent, useRemote } from '../config/remote';
 import { openLink } from '../lib/links';
@@ -11,6 +12,45 @@ import { RosierLogo } from './Logo';
 import { Button, Img } from './ui';
 
 const DAY = 24 * 60 * 60 * 1000;
+
+/** Admin preview: "Show popup in preview" bumps this to show the popup again. */
+export const useTryPopup = create<{ n: number }>(() => ({ n: 0 }));
+
+function clamp(v: unknown, def: number, min: number, max: number) {
+  const n = Number(v);
+  return Number.isFinite(n) && v !== '' && v != null ? Math.min(max, Math.max(min, n)) : def;
+}
+
+/** The popup's entrance animation chosen in the admin panel. Unknown values fall back to zoom. */
+function popupEntering(kind: string | undefined, speed: number) {
+  const ms = (base: number) => Math.round(base / speed);
+  try {
+    switch (kind) {
+      case 'none':
+        return undefined;
+      case 'fade':
+        return FadeIn.duration(ms(350));
+      case 'pop':
+        return ZoomIn.duration(ms(220));
+      case 'slideUp':
+        return SlideInDown.duration(ms(420));
+      case 'slideDown':
+        return SlideInUp.duration(ms(420));
+      case 'bounce':
+        return BounceIn.duration(ms(650));
+      case 'flip':
+        return FlipInXUp.duration(ms(500));
+      case 'rotate':
+        return PinwheelIn.duration(ms(500));
+      case 'fadeUp':
+        return FadeInUp.duration(ms(400));
+      default:
+        return ZoomIn.springify().damping(14).mass(1 / speed);
+    }
+  } catch {
+    return FadeIn;
+  }
+}
 
 /** Full-screen notice used for maintenance and forced updates. */
 function Blocker({ icon, title, message, image, action }: { icon: any; title: string; message: string; image?: string; action?: { label: string; onPress: () => void } }) {
@@ -54,13 +94,24 @@ export function RemoteGate() {
   const [updateDismissed, setUpdateDismissed] = useState(false);
   const [popupReady, setPopupReady] = useState(false);
   const [popupClosed, setPopupClosed] = useState(false);
+  const tryN = useTryPopup((s) => s.n);
+  const [trying, setTrying] = useState(false);
+  const delayMs = clamp((popup as any).delaySeconds, 1.5, 0, 30) * 1000;
 
   // Let the home screen settle before a popup appears.
   useEffect(() => {
     if (!onboarded) return;
-    const id = setTimeout(() => setPopupReady(true), 1400);
+    const id = setTimeout(() => setPopupReady(true), delayMs);
     return () => clearTimeout(id);
   }, [onboarded]);
+
+  // Admin preview: show the popup now, whatever its schedule or "how often" says.
+  useEffect(() => {
+    if (!tryN) return;
+    setTrying(false);
+    const id = setTimeout(() => setTrying(true), 150);
+    return () => clearTimeout(id);
+  }, [tryN]);
 
   const outdated = !!general.update.minVersion && compareVersions(APP_VERSION, general.update.minVersion) < 0;
   const url = storeUrl(general.update);
@@ -74,11 +125,17 @@ export function RemoteGate() {
 
   const last = popupSeen[popup.id] ?? 0;
   const due = popup.frequency === 'every_launch' ? true : popup.frequency === 'daily' ? Date.now() - last > DAY : !last;
-  const showPopup = onboarded && popupReady && !popupClosed && !!popup.enabled && !!popup.id && isLive(popup) && due && (!!popup.image || !!popup.title);
+  const hasContent = !!popup.image || !!popup.title;
+  const showPopup = (trying && hasContent) || (onboarded && popupReady && !popupClosed && !!popup.enabled && !!popup.id && isLive(popup) && due && hasContent);
   const closePopup = () => {
+    if (trying) return setTrying(false);
     markPopup(popup.id);
     setPopupClosed(true);
   };
+  const p = popup as any;
+  const entering = popupEntering(p.animation, clamp(p.animSpeed, 1, 0.25, 4));
+  const shade = clamp(p.backdrop, 60, 0, 95) / 100;
+  const tapOutside = p.closeOnTapOutside !== false;
   const showUpdate = outdated && !updateDismissed && onboarded && !showPopup;
 
   return (
@@ -92,9 +149,9 @@ export function RemoteGate() {
         </Animated.View>
       )}
 
-      <Modal visible={showPopup} transparent animationType="fade" onRequestClose={closePopup}>
-        <Pressable onPress={closePopup} style={{ flex: 1, backgroundColor: 'rgba(30,18,10,0.6)', alignItems: 'center', justifyContent: 'center', padding: 24 }}>
-          <Animated.View entering={ZoomIn.springify().damping(14)} style={{ width: Math.min(width - 48, 380), backgroundColor: '#FFFBF5', borderRadius: 26, overflow: 'hidden' }}>
+      <Modal visible={showPopup} transparent animationType={p.animation === 'none' ? 'none' : 'fade'} onRequestClose={closePopup}>
+        <Pressable onPress={tapOutside ? closePopup : undefined} style={{ flex: 1, backgroundColor: `rgba(30,18,10,${shade})`, alignItems: 'center', justifyContent: 'center', padding: 24 }}>
+          <Animated.View key={`${tryN}:${p.animation}`} entering={entering} style={{ width: Math.min(width - 48, 380), backgroundColor: '#FFFBF5', borderRadius: 26, overflow: 'hidden' }}>
             <Pressable onPress={() => {}}>
               {!!popup.image && (
                 <Pressable

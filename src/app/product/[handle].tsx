@@ -21,6 +21,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Dot } from '../../components/Banners';
+import { PhotoViewer } from '../../components/PhotoViewer';
 import { Coin } from '../../components/Coin';
 import { flyFrom } from '../../components/FlyToCart';
 import { CATEGORY_CHIPS, DealCard } from '../../components/ProductCard';
@@ -98,6 +99,8 @@ export default function ProductScreen() {
   const liked = useWishlist((s) => (product ? s.handles.includes(product.handle) : false));
   const toggleLike = useWishlist((s) => s.toggle);
   const heroRef = useRef<View>(null);
+  const gallery = useRef<ScrollView>(null);
+  const [viewer, setViewer] = useState<{ open: boolean; start: number }>({ open: false, start: 0 });
   const y = useSharedValue(0);
   const heart = useSharedValue(1);
   const coinPulse = useSharedValue(1);
@@ -150,21 +153,22 @@ export default function ProductScreen() {
         <Editable id="productPage" label="Product photo" target="productPage.heroHeight" base={pp.heroHeight}>
         <Animated.View ref={heroRef as any} collapsable={false} style={[{ height: HERO, backgroundColor: '#2A1A10' }, heroStyle]}>
           <ScrollView
+            ref={gallery}
             horizontal
             pagingEnabled
             showsHorizontalScrollIndicator={false}
             onMomentumScrollEnd={(e) => setImgIdx(Math.round(e.nativeEvent.contentOffset.x / width))}
           >
             {product.images.map((uri, i) => (
-              <View key={uri} style={{ width, height: HERO, backgroundColor: pp.heroBg }}>
+              <Pressable key={uri} accessibilityRole="imagebutton" accessibilityLabel="Open photo full screen" onPress={() => setViewer({ open: true, start: i })} style={{ width, height: HERO, backgroundColor: pp.heroBg }}>
                 <Img source={uri} size={width} style={{ width: '100%', height: '100%' }} contentFit={i === 0 ? pp.heroFit : 'cover'} />
-              </View>
+              </Pressable>
             ))}
           </ScrollView>
           <LinearGradient pointerEvents="none" colors={['rgba(0,0,0,0.35)', 'transparent', 'transparent', 'rgba(20,12,6,0.85)']} locations={[0, 0.2, 0.55, 1]} style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0 }} />
 
           {/* Info panel over the image */}
-          <View style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: 20, paddingBottom: 26, flexDirection: 'row', alignItems: 'flex-end' }}>
+          <View pointerEvents="none" style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: 20, paddingBottom: 26, flexDirection: 'row', alignItems: 'flex-end' }}>
             <Animated.View entering={FadeInUp.delay(75).springify()} style={{ flex: 1, paddingRight: 10 }}>
               <Text style={{ fontFamily: fonts.sansSemi, fontSize: 24, color: '#fff', lineHeight: 30 }} numberOfLines={2}>
                 {shortTitle(product.title)}
@@ -368,6 +372,16 @@ export default function ProductScreen() {
           )}
         </View>
       </Animated.View>
+      <PhotoViewer
+        images={product.images}
+        start={viewer.start}
+        visible={viewer.open}
+        onClose={(i) => {
+          setViewer((v) => ({ ...v, open: false }));
+          setImgIdx(i);
+          gallery.current?.scrollTo({ x: i * width, animated: false });
+        }}
+      />
     </View>
   );
 }

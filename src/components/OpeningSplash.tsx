@@ -94,7 +94,14 @@ function SplashVideo({ uri, sound, fit, onEnd }: { uri: string; sound: boolean; 
   });
   useEffect(() => {
     const sub = player.addListener('playToEnd', onEnd);
-    return () => sub.remove();
+    // A video that can't load (bad link, no internet) must never leave the app stuck.
+    const err = player.addListener('statusChange', ({ status }) => status === 'error' && onEnd());
+    const guard = setTimeout(onEnd, 20_000);
+    return () => {
+      sub.remove();
+      err.remove();
+      clearTimeout(guard);
+    };
   }, [player]);
   return <VideoView player={player} style={StyleSheet.absoluteFill} contentFit={fit} nativeControls={false} />;
 }
